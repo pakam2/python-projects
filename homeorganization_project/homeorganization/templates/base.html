@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- bootstrap4 js, jquery, etc -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <title>{% block title %} {% endblock %}</title>
+    <style>
+        body {
+          font-family:Consolas;
+          background-image: url('static/4.jpg')  !important;
+          background-size:     cover;
+          background-repeat:   no-repeat;
+          background-position: center center;
+        }
+        h1, h2 {
+          font-family: "Comic Sans MS", cursive, sans-serif;
+
+        }
+        a.navbar-brand{
+          font-family:"Comic Sans MS", cursive, sans-serif;
+
+        }
+        div.container{
+
+        }
+    </style>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+      {% include 'include/navbar.html' %}
+    {% endif %}
+  <div class="container">
+{% block body %}
+
+
+{% endblock %}
+</div>
+  </body>
+</html>
