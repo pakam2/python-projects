@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <style>
+  #myChart {
+
+  height: auto;
+}
+  #myChart {
+    height: auto;
+  }
+
+
+
+
+
+  </style>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js">
+
+  </script>
+
+  <div class="row">
+
+   <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+  <canvas id="myChart"></canvas>
+  <script>
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: {
+          labels: ["Jedzenie", "Warzywa i owoce", "Jedzenie w pracy", "Jedzenie na mieście", "woda_sodowa",
+                    "Prezenty",
+                    "Przekąski",
+                    "Słodycze",
+                    "Zdrowie",
+                    "art",
+                    "Książki",
+                    "toys",
+
+                    ],
+          datasets: [{
+              label: 'Wydatki',
+              data: [{{jedzenie}}, {{wio}}, {{jedzenie_w_pracy}}, {{jedzenie_na_miescie}}, {{woda_sodowa}},
+                    {{prezenty}},
+                    {{przekaski}},
+                    {{sweets}},
+                    {{zdrowie}},
+                    {{art}},
+                    {{books}},
+                    {{toys}},
+
+                    ],
+              backgroundColor: [
+                  'rgba(46, 189, 70, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(46, 154, 70, 0.9)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 159, 64, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+            xAxes: [{
+              stacked: true
+            }],
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+
+
+
+  var ctx2 = document.getElementById("myChart2").getContext('2d');
+  var myChart = new Chart2(ctx2, {
+      type: 'Bar',
+      data: {
+          labels: ["Jedzenie","Jedzenie"
+
+                    ],
+          datasets: [{
+              label: 'ssss',
+              data: [{{jedzenie}}, {{jedzenie}}
+                    ],
+              backgroundColor: [
+                  'rgba(46, 189, 70, 0.2)',
+                  'rgba(46, 189, 70, 0.2)',
+
+              ],
+              borderColor: [
+                  'rgba(46, 154, 70, 0.9)',
+                  'rgba(46, 154, 70, 0.9)',
+
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+  </script>
+</div>
+<div class="chart-container" style="position: relative; height:50vh; width:50vw">
+  <canvas id="myChart2"></canvas>
+</div>
+</div>
+
+
+
+  {% endblock %}

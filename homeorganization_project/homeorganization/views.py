@@ -40,6 +40,14 @@ class MainSite(LoginRequiredMixin, View):
         if request.user.is_authenticated():
             return render(request, 'main.html')
 
+
+class ShoppingListView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        return render(request, 'shoppinglist.html')
+
+
+
 class LogoutView(View):
 
 

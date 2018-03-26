@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<br>
+
+
+<div class="page-header">
+    <h2>Dodaj dochód</h2>
+
+  </div>
+
+<br>
+  <form action="" method="POST">
+    <div class="form-row">
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="income" placeholder="Wpisz wartość">
+      </div>
+      <div class="col-sm-2">
+        <select name="firstcategory" class="form-control">
+            <option value="...">...</option>
+            <option value="Kasia">Kasia</option>
+            <option value="Pawel">Paweł</option>
+
+        </select>
+      </div>
+
+    </div>
+
+ <div class="row">
+
+  <div class="col-sm-12">
+
+      <br> <button type="submit" class="btn btn-primary">Prześlij do bazy danych</button>
+
+</form>
+  </div></div>
+
+
+
+</body>
+</html>
+{% endblock %}

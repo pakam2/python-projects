@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<br>
+
+<style type="text/css">
+    table{
+        width: 100%;
+
+    }
+
+    table tr, th, td {
+        font-size: medium;
+        text-align: center;
+    }
+    body {
+      font-family:Consolas;
+      background-image: url('../static/4.jpg') !important;
+      background-size:     cover;
+      background-repeat:   no-repeat;
+      background-position: center center;
+    }
+
+
+</style>
+<div class="page-header">
+    <h2>Statystyki na obecny miesiąc</h2>
+  </div>
+<br>
+ <div class="row">
+
+  <div class="col-sm-6">
+<table class="table-hover table-bordered">
+    <tr><th>Kategoria wydatku</th><th>Suma</th></tr>
+    <tr><td>Jedzenie</td><td>{{jedzenie}}</td></tr>
+    <tr><td>Warzywa i owoce</td><td>{{wio}}</td></tr>
+    <tr><td>Jedzenie na miescie</td><td>{{jedzenie_na_miescie}}</td></tr>
+    <tr><td>Jedzenie w pracy</td><td>{{jedzenie_w_pracy}}</td></tr>
+    <tr><td>Woda sodowa</td><td>{{woda_sodowa}}</td></tr>
+    <tr><td>Alkohol</td><td>{{alkohol}}</td></tr>
+    <tr><td>Przekąski</td><td>{{przekaski}}</td></tr>
+    <tr><td>Słodycze</td><td>{{slodycze}}</td></tr>
+    <tr><td>Zdrowie</td><td>{{zdrowie}}</td></tr>
+    <tr><td>Artykuły papiernicze</td><td>{{art}}</td></tr>
+    <tr><td>Książki i gazety</td><td>{{books}}</td></tr>
+    <tr><td>Zabawki</td><td>{{toys}}</td></tr>
+    <tr><td>Prezenty</td><td>{{prezenty}}</td></tr>
+    <tr><td>Kosmetyki</td><td>{{kosmetyki}}</td></tr>
+    <tr><td>Chemia</td><td>{{chemia}}</td></tr>
+    <tr><td>Ubrania</td><td>{{ubrania}}</td></tr>
+    <tr><td>Inne wydatki</td><td>{{inne}}</td></tr>
+    <tr><td><b>Suma</b></td><td><b>{{suma}}</b></td></tr>
+</table>
+  </div>
+
+       <div class="col-sm-6">
+<table class="table-hover table-bordered">
+    <tr><th>Wydatki stałe</th><th>Suma</th></tr>
+    <tr><td>Czynsz</td><td>{% if czynsz is None %}
+                                    0
+                                    {% else %}
+                                        {{ czynsz }}
+                                {% endif %}</td></tr>
+    <tr><td>Abonament</td><td>{{abonament}}</td></tr>
+    <tr><td>Przedszkole</td><td>{{przedszkole}}</td></tr>
+    <tr><td>KKM</td><td>{{kkm}}</td></tr>
+    <tr><td><b>Suma</b></td><td><b>{{suma_two}}</b></td></tr>
+</table>
+  </div>
+
+
+
+
+ </div>
+ <br>
+ <form action="" method="POST">
+   <button type="submit" class="btn btn-primary">Stwórz graf</button>
+ </form>
+</body>
+</html>
+{% endblock %}

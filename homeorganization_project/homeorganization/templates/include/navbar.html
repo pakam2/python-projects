@@ -1,16 +1,50 @@
+
+<style type="text/css">
+  .navbar-brand{
+    font-size: 1.1rem;
+  }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+
+
+
+  <a class="navbar-brand" href="/">Strona główna</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <button type="button" class="btn btn-default btn-sm">
-        <a href="/logout" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a>
-      </button>
-    </div>
-  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="dropdown nav-item">
+          <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Budżet domowy<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="nav-item"><a class="navbar-brand" href="/addincome">Dochód</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/addrepeatable">Koszty stałe</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/addexpense">Dodaj paragon</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/addreceipt">Dodaj paragon z pliku</a></li>
+
+          </ul>
+
+        </li>
+      <li class="nav-item">
+        <a class="navbar-brand" href="/shoppinglist">Lista zakupów</a>
+        <a class="navbar-brand" href="/monthlystatistics">Statystyki na obecny miesiąc</a>
+        <button type="button" class="btn btn-default btn-sm">
+          <a href="/logout" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a>
+        </button>
+      </li>
+
+
+
+
+
+
+
+    </ul>
+
+    <div>
+
 </nav>

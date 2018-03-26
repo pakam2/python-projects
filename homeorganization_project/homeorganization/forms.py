@@ -4,5 +4,5 @@ from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=64)
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label="Login", max_length=64)
+    password = forms.CharField(label="Hasło", widget=forms.PasswordInput)
