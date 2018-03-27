@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 
 {% block body %}
 <br>
@@ -32,24 +32,24 @@
   <div class="col-sm-6">
 <table class="table-hover table-bordered">
     <tr><th>Kategoria wydatku</th><th>Suma</th></tr>
-    <tr><td>Jedzenie</td><td>{{jedzenie}}</td></tr>
-    <tr><td>Warzywa i owoce</td><td>{{wio}}</td></tr>
-    <tr><td>Jedzenie na miescie</td><td>{{jedzenie_na_miescie}}</td></tr>
-    <tr><td>Jedzenie w pracy</td><td>{{jedzenie_w_pracy}}</td></tr>
-    <tr><td>Woda sodowa</td><td>{{woda_sodowa}}</td></tr>
-    <tr><td>Alkohol</td><td>{{alkohol}}</td></tr>
-    <tr><td>Przekąski</td><td>{{przekaski}}</td></tr>
-    <tr><td>Słodycze</td><td>{{slodycze}}</td></tr>
-    <tr><td>Zdrowie</td><td>{{zdrowie}}</td></tr>
-    <tr><td>Artykuły papiernicze</td><td>{{art}}</td></tr>
-    <tr><td>Książki i gazety</td><td>{{books}}</td></tr>
-    <tr><td>Zabawki</td><td>{{toys}}</td></tr>
-    <tr><td>Prezenty</td><td>{{prezenty}}</td></tr>
-    <tr><td>Kosmetyki</td><td>{{kosmetyki}}</td></tr>
-    <tr><td>Chemia</td><td>{{chemia}}</td></tr>
-    <tr><td>Ubrania</td><td>{{ubrania}}</td></tr>
-    <tr><td>Inne wydatki</td><td>{{inne}}</td></tr>
-    <tr><td><b>Suma</b></td><td><b>{{suma}}</b></td></tr>
+    <tr><td>Jedzenie</td><td>{% if jedzenie is None %} 0 {% else %} {{jedzenie}} {% endif%}</td></tr>
+    <tr><td>Warzywa i owoce</td><td>{% if wio is None %} 0 {% else %} {{wio}} {% endif%}</td></tr>
+    <tr><td>Jedzenie na miescie</td><td>{% if jedzenie_na_miescie is None %} 0 {% else %} {{jedzenie_na_miescie}} {% endif%}</td></tr>
+    <tr><td>Jedzenie w pracy</td><td>{% if jedzenie_w_pracy is None %} 0 {% else %} {{jedzenie_w_pracy}} {% endif%}</td></tr>
+    <tr><td>Woda sodowa</td><td>{% if woda_sodowa is None %} 0 {% else %} {{woda_sodowa}} {% endif%}</td></tr>
+    <tr><td>Alkohol</td><td>{% if alkohol is None %} 0 {% else %} {{alkohol}} {% endif%}</td></tr>
+    <tr><td>Przekąski</td><td>{% if przekaski is None %} 0 {% else %} {{przekaski}} {% endif%}</td></tr>
+    <tr><td>Słodycze</td><td>{% if slodycze is None %} 0 {% else %} {{slodycze}} {% endif%}</td></tr>
+    <tr><td>Zdrowie</td><td>{% if zdrowie is None %} 0 {% else %} {{zdrowie}} {% endif%}</td></tr>
+    <tr><td>Artykuły papiernicze</td><td>{% if art is None %} 0 {% else %} {{art}} {% endif %}</td></tr>
+    <tr><td>Książki i gazety</td><td>{% if books is None %} 0 {% else %} {{books}} {% endif %}</td></tr>
+    <tr><td>Zabawki</td><td>{% if toys is None %} 0 {% else %} {{toys}} {% endif %}</td></tr>
+    <tr><td>Prezenty</td><td>{% if prezenty is None %} 0 {% else %} {{prezenty}} {% endif %}</td></tr>
+    <tr><td>Kosmetyki</td><td>{% if kosmetyki is None %} 0 {% else %} {{kosmetyki}} {% endif %}</td></tr>
+    <tr><td>Chemia</td><td>{% if chemia is None %} 0 {% else %} {{chemia}} {% endif %}</td></tr>
+    <tr><td>Ubrania</td><td>{% if ubrania is None %} 0 {% else %} {{ubrania}} {% endif %}</td></tr>
+    <tr><td>Inne wydatki</td><td>{% if inne is None %} 0 {% else %} {{inne}} {% endif %}</td></tr>
+    <tr><td><b>Suma</b></td><td><b>{% if suma is None %} 0 {% else %} {{suma}} {% endif %}</b></td></tr>
 </table>
   </div>
 
@@ -61,10 +61,10 @@
                                     {% else %}
                                         {{ czynsz }}
                                 {% endif %}</td></tr>
-    <tr><td>Abonament</td><td>{{abonament}}</td></tr>
-    <tr><td>Przedszkole</td><td>{{przedszkole}}</td></tr>
-    <tr><td>KKM</td><td>{{kkm}}</td></tr>
-    <tr><td><b>Suma</b></td><td><b>{{suma_two}}</b></td></tr>
+    <tr><td>Abonament</td><td>{% if abonament is None %} 0 {% else %} {{abonament}} {% endif%}</td></tr>
+    <tr><td>Przedszkole</td><td>{% if przedszkole is None %} 0 {% else %} {{przedszkole}} {% endif%}</td></tr>
+    <tr><td>KKM</td><td>{% if kkm is None %} 0 {% else %} {{kkm}} {% endif%}</td></tr>
+    <tr><td><b>Suma</b></td><td><b>{% if suma_two is None %} 0 {% else %} {{suma_two}} {% endif%}</b></td></tr>
 </table>
   </div>
 
@@ -74,6 +74,7 @@
  </div>
  <br>
  <form action="" method="POST">
+   {% csrf_token %}
    <button type="submit" class="btn btn-primary">Stwórz graf</button>
  </form>
 </body>

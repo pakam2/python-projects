@@ -1,5 +1,5 @@
 from datetime import date
-from homebudget.models import Expenses, RepeatableExpenses
+from homeorganization.models import Expenses, RepeatableExpenses
 
 
 def calculate_and_add_to_db(totalvalue, *args):

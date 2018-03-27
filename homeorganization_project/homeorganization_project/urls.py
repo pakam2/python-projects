@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from homeorganization.views import LoginView, MainSite, LogoutView, \
-                                            ShoppingListView
+                                    ShoppingListView, AddExpense, AddRepeatable, \
+                                    MonthlyStatistics, Income
+
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +27,9 @@ urlpatterns = [
     url(r'^main/', MainSite.as_view(), name="main-view"),
     url(r'^logout/', LogoutView.as_view(), name="logout-view"),
     url(r'^shoppinglist/', ShoppingListView.as_view(), name="shoppinglist-view"),
+    url(r'^addexpense/$', AddExpense.as_view()),
+    url(r'^addincome/$', Income.as_view()),
+    url(r'^addrepeatable/$', AddRepeatable.as_view()),
+    url(r'^monthlystatistics/$', MonthlyStatistics.as_view()),
+    #url(r'^shoppinglist/$', ShoppingList.as_view()),
 ]
