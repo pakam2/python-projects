@@ -15,7 +15,6 @@
     }
     body {
       font-family:Consolas;
-      background-image: url('../static/4.jpg') !important;
       background-size:     cover;
       background-repeat:   no-repeat;
       background-position: center center;
@@ -31,7 +30,7 @@
 
   <div class="col-sm-6">
 <table class="table-hover table-bordered">
-    <tr><th>Kategoria wydatku</th><th>Suma</th></tr>
+    <tr><th style="background-color:black; color:white;">Kategoria wydatku</th><th style="background-color:black; color:white;">Suma</th></tr>
     <tr><td>Jedzenie</td><td>{% if jedzenie is None %} 0 {% else %} {{jedzenie}} {% endif%}</td></tr>
     <tr><td>Warzywa i owoce</td><td>{% if wio is None %} 0 {% else %} {{wio}} {% endif%}</td></tr>
     <tr><td>Jedzenie na miescie</td><td>{% if jedzenie_na_miescie is None %} 0 {% else %} {{jedzenie_na_miescie}} {% endif%}</td></tr>
@@ -51,11 +50,12 @@
     <tr><td>Inne wydatki</td><td>{% if inne is None %} 0 {% else %} {{inne}} {% endif %}</td></tr>
     <tr><td><b>Suma</b></td><td><b>{% if suma is None %} 0 {% else %} {{suma}} {% endif %}</b></td></tr>
 </table>
+<br>
   </div>
 
        <div class="col-sm-6">
 <table class="table-hover table-bordered">
-    <tr><th>Wydatki stałe</th><th>Suma</th></tr>
+    <tr><th style="background-color:black; color:white;">Wydatki stałe</th><th style="background-color:black; color:white;">Suma</th></tr>
     <tr><td>Czynsz</td><td>{% if czynsz is None %}
                                     0
                                     {% else %}
@@ -65,6 +65,13 @@
     <tr><td>Przedszkole</td><td>{% if przedszkole is None %} 0 {% else %} {{przedszkole}} {% endif%}</td></tr>
     <tr><td>KKM</td><td>{% if kkm is None %} 0 {% else %} {{kkm}} {% endif%}</td></tr>
     <tr><td><b>Suma</b></td><td><b>{% if suma_two is None %} 0 {% else %} {{suma_two}} {% endif%}</b></td></tr>
+</table>
+<br>
+<table class="table-hover table-bordered">
+    <tr><th style="background-color:black; color:white;">Przychody</th><th style="background-color:black; color:white;">Suma</th></tr>
+    <tr><td>Kasia</td><td>{% if money_kasia is None %} 0 {% else %} {{money_kasia}} {% endif%}</td></tr>
+    <tr><td>Paweł</td><td>{% if money_pawel is None %} 0 {% else %} {{money_pawel}} {% endif%}</td></tr>
+    <tr><td><b>Suma</b></td><td><b>{% if suma_income is None %} 0 {% else %} {{suma_income}} {% endif%}</b></td></tr>
 </table>
   </div>
 

@@ -258,7 +258,13 @@ class MonthlyStatistics(LoginRequiredMixin, View):
         for x in data_from_db_suma_two.values():
             suma_two = x
 
-
+        #income
+        data_for_db_money_kasia = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                 year_of_expense=this_year,
+                                                                 type_of_income="Kasia").aggregate(Sum('amount_of_money'))
+        money_kasia = ''
+        for x in data_for_db_money_kasia.values():
+            money_kasia = x
 
         return render(request, 'monthlystatistics.html', {'jedzenie': jedzenie,
                                                           'wio': wio,
@@ -544,4 +550,7 @@ class Income(LoginRequiredMixin, View):
         return render(request, 'addincome.html')
 
     def post(self, request):
+        income_who = request.POST['firstcategory']
+        income = request.POST['income']
+        print(income_who +  " " + income )
         return render(request, 'addincome.html')
