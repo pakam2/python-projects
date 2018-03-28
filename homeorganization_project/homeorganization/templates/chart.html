@@ -3,86 +3,271 @@
 {% block body %}
 {% load static %}
 
-  <canvas id="canvas"></canvas>
-</div>
-<button id="randomizeData">Randomize Data</button>
+<canvas id="myChart" style="position: relative; height:40vh; width:80vw"></canvas>
 <script>
-  var barChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'Dataset 1',
-      backgroundColor: window.chartColors.red,
-      stack: 'Stack 0',
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }, {
-      label: 'Dataset 2',
-      backgroundColor: window.chartColors.blue,
-      stack: 'Stack 0',
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }, {
-      label: 'Dataset 3',
-      backgroundColor: window.chartColors.green,
-      stack: 'Stack 1',
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }]
-  };
-  window.onload = function() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    window.myBar = new Chart(ctx, {
-      type: 'bar',
-      data: barChartData,
-      options: {
-        title: {
-          display: true,
-          text: 'Chart.js Bar Chart - Stacked'
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false
-        },
-        responsive: true,
-        scales: {
-          xAxes: [{
-            stacked: true,
-          }],
-          yAxes: [{
-            stacked: true
-          }]
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [""],
+        datasets: [{
+            label: 'Jedzenie',
+            data: [{% if jedzenie is None %} 0 {% else %} {{jedzenie}} {% endif %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+
+
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+
+            ],
+            borderWidth: 1
         }
-      }
-    });
-  };
-  document.getElementById('randomizeData').addEventListener('click', function() {
-    barChartData.datasets.forEach(function(dataset) {
-      dataset.data = dataset.data.map(function() {
-        return randomScalingFactor();
-      });
-    });
-    window.myBar.update();
-  });
+          , {
+            label: 'Jedzenie w pracy',
+            data: [{% if jedzenie_w_pracy is None %} 0 {% else %} {{ jedzenie_w_pracy }} {% endif %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+
+            ],
+            borderWidth: 1
+        },
+        {
+          label: 'Warzywa i owoce',
+          data: [{% if wio is None %} 0 {% else%} {{wio}} {% endif %}],
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+
+          ],
+          borderColor: [
+              'rgba(255,99,132,1)',
+
+          ],
+          borderWidth: 1
+      },
+      {
+        label: 'Woda sodowa',
+        data: [{% if woda_sodowa is None %} 0 {% else %} {{woda_sodowa}} {% endif %}],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ],
+        borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(255,99,132,1)',
+
+        ],
+        borderWidth: 1
+
+    },      {
+            label: 'Prezenty',
+            data: [{% if prezenty is None %} 0 {% else %} {{prezenty}} {% endif %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(255,99,132,1)',
+
+            ],
+            borderWidth: 1
+
+        },
+        {
+              label: 'Przekąski',
+              data: [{% if przekaski is None %} 0 {% else %} {{przekaski}} {% endif %}],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(255,99,132,1)',
+
+              ],
+              borderWidth: 1
+
+          },
+          {
+                label: 'Słodycze',
+                data: [{% if slodycze is None %} 0 {% else %} {{slodycze}} {% endif %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(255,99,132,1)',
+
+                ],
+                borderWidth: 1
+
+            },
+            {
+                  label: 'Zdrowie',
+                  data: [{% if zdrowie is None %} 0 {% else %} {{zdrowie}} {% endif %}],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(255, 99, 132, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(255,99,132,1)',
+
+                  ],
+                  borderWidth: 1
+
+              },
+              {
+                    label: 'Artykuły papiernicze',
+                    data: [{% if art is None %} 0 {% else %} {{art}} {% endif %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(255,99,132,1)',
+
+                    ],
+                    borderWidth: 1
+
+                },
+                {
+                      label: 'Książki',
+                      data: [{% if books is None %} 0 {% else %} {{books}} {% endif %}],
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(255, 99, 132, 0.2)',
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(255,99,132,1)',
+
+                      ],
+                      borderWidth: 1
+
+                  },
+                  {
+                        label: 'Zabawki',
+                        data: [{% if toys is None %} 0 {% else %} {{toys}} {% endif %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(255,99,132,1)',
+
+                        ],
+                        borderWidth: 1
+
+                    },
+                    {
+                          label: 'Alkohol',
+                          data: [{% if alkohol is None %} 0 {% else %} {{alkohol}} {% endif %}],
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)',
+                              'rgba(255, 99, 132, 0.2)',
+                          ],
+                          borderColor: [
+                              'rgba(255,99,132,1)',
+                              'rgba(255,99,132,1)',
+
+                          ],
+                          borderWidth: 1
+
+                      },
+                      {
+                            label: 'Kosmetyki',
+                            data: [{% if kosmetyki is None %} 0 {% else %} {{kosmetyki}} {% endif %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(255,99,132,1)',
+
+                            ],
+                            borderWidth: 1
+
+                        },
+                        {
+                              label: 'Chemia',
+                              data: [{% if chemia is None %} 0 {% else %} {{chemia}} {% endif %}],
+                              backgroundColor: [
+                                  'rgba(255, 99, 132, 0.2)',
+                                  'rgba(255, 99, 132, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(255,99,132,1)',
+                                  'rgba(255,99,132,1)',
+
+                              ],
+                              borderWidth: 1
+
+                          },
+                          {
+                                label: 'Ubrania',
+                                data: [{% if ubrania is None %} 0 {% else %} {{ubrania}} {% endif %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(255,99,132,1)',
+
+                                ],
+                                borderWidth: 1
+
+                            },
+                            {
+                                  label: 'inne',
+                                  data: [{% if inne is None %} 0 {% else %} {{inne}} {% endif %}],
+                                  backgroundColor: [
+                                      'rgba(255, 99, 132, 0.2)',
+                                      'rgba(255, 99, 132, 0.2)',
+                                  ],
+                                  borderColor: [
+                                      'rgba(255,99,132,1)',
+                                      'rgba(255,99,132,1)',
+
+                                  ],
+                                  borderWidth: 1
+
+                              }
+
+
+
+      ],
+
+
+
+    },
+
+
+
+
+    options: {
+        scales: {
+            yAxes: [{
+
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
 </script>
+
   {% endblock %}
