@@ -2,14 +2,15 @@
 
 {% block body %}
 {% load static %}
+<br>
 
-<canvas id="myChart" style="position: relative; height:40vh; width:80vw"></canvas>
+<canvas id="myChart" style="position: relative; height:20vh; width:40vw"></canvas><br>
 <script>
 var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [""],
+        labels: ["Wydatki"],
         datasets: [{
             label: 'Jedzenie',
             data: [{% if jedzenie is None %} 0 {% else %} {{jedzenie}} {% endif %}],
@@ -268,6 +269,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
 </script>
 
   {% endblock %}
