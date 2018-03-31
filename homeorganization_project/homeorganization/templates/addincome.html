@@ -34,8 +34,10 @@
       <br> <button type="submit" class="btn btn-primary">Prześlij do bazy danych</button>
       <br>
       <br>
-      {% if test == False %}
+      {% if test == False%}
         <p>Podaj kwotę i wybierz osobę!</p>
+      {% elif test == "Z" %}
+        <p>Została podana zbyt duża kwota!</p>
       {% else %}
         <p></p>
       {% endif %}

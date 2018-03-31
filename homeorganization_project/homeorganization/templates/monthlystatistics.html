@@ -48,7 +48,7 @@
     <tr><td>Chemia</td><td>{% if chemia is None %} 0 {% else %} {{chemia}} {% endif %}</td></tr>
     <tr><td>Ubrania</td><td>{% if ubrania is None %} 0 {% else %} {{ubrania}} {% endif %}</td></tr>
     <tr><td>Inne wydatki</td><td>{% if inne is None %} 0 {% else %} {{inne}} {% endif %}</td></tr>
-    <tr><td><b>Suma</b></td><td><b>{% if suma is None %} 0 {% else %} {{suma}} {% endif %}</b></td></tr>
+    <tr><td style="background-color:black; color:white;"><b>Suma</b></td><td style="background-color:black; color:white;"><b>{% if suma is None %} 0 {% else %} {{suma}} {% endif %}</b></td></tr>
 </table>
 <br>
   </div>
@@ -60,14 +60,14 @@
     <tr><td>Abonament</td><td>{% if abonament is None %} 0 {% else %} {{abonament}} {% endif%}</td></tr>
     <tr><td>Przedszkole</td><td>{% if przedszkole is None %} 0 {% else %} {{przedszkole}} {% endif%}</td></tr>
     <tr><td>KKM</td><td>{% if kkm is None %} 0 {% else %} {{kkm}} {% endif%}</td></tr>
-    <tr><td><b>Suma</b></td><td><b>{% if suma_two is None %} 0 {% else %} {{suma_two}} {% endif%}</b></td></tr>
+    <tr><td style="background-color:black; color:white;"><b>Suma</b></td><td style="background-color:black; color:white;"><b>{% if suma_two is None %} 0 {% else %} {{suma_two}} {% endif%}</b></td></tr>
 </table>
 <br>
 <table class="table-hover table-bordered">
     <tr><th style="background-color:black; color:white;">Przychody</th><th style="background-color:black; color:white;">Suma</th></tr>
     <tr><td>Kasia</td><td>{% if money_kasia is None %} 0 {% else %} {{money_kasia}} {% endif%}</td></tr>
     <tr><td>Paweł</td><td>{% if money_pawel is None %} 0 {% else %} {{money_pawel}} {% endif%}</td></tr>
-    <tr><td><b>Suma</b></td><td><b>{% if suma_income is None %} 0 {% else %} {{suma_income}} {% endif%}</b></td></tr>
+    <tr><td style="background-color:black; color:white;"><b>Suma</b></td><td style="background-color:black; color:white;"><b>{% if suma_income is None %} 0 {% else %} {{suma_income}} {% endif%}</b></td></tr>
 </table>
   </div>
 

@@ -15,7 +15,7 @@ from add_numbers_from_form import add_numbers_from_form
 from .models import Expenses, RepeatableExpenses, Income
 from django.db.models import Sum
 #Imported forms
-from .forms import LoginForm
+from .forms import LoginForm, RepeatableExpensesForm
 
 # Create your views here.
 
@@ -269,6 +269,13 @@ class MonthlyStatistics(LoginRequiredMixin, View):
         money_pawel = ''
         for x in data_for_db_money_pawel.values():
             money_pawel = x
+
+        data_from_db_suma_income = Income.objects.filter(month_of_income=this_month,
+                                                                    year_of_income=this_year).aggregate(Sum('amount_of_money'))
+        suma_income = ''
+        for x in data_from_db_suma_income.values():
+            suma_income = x
+
         return render(request, 'monthlystatistics.html', {'jedzenie': jedzenie,
                                                           'wio': wio,
                                                           'jedzenie_w_pracy': jedzenie_w_pracy,
@@ -294,6 +301,7 @@ class MonthlyStatistics(LoginRequiredMixin, View):
                                                           'suma_two': suma_two,
                                                           'money_kasia': money_kasia,
                                                           'money_pawel': money_pawel,
+                                                          'suma_income': suma_income,
                                                           })
     def post(self, request):
 
@@ -487,9 +495,6 @@ class MonthlyStatistics(LoginRequiredMixin, View):
                                                     })
 
 class AddExpense(LoginRequiredMixin, View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def get(self,request):
         return render(request, 'addexpense.html')
@@ -512,39 +517,51 @@ class AddExpense(LoginRequiredMixin, View):
         totalvalue = request.POST['totalvalue']
 
         #policzenie sumy z pola formularza
-        first_dict = add_numbers_from_form(firstcategoryvalue, firstcategory)
-        second_dict = add_numbers_from_form(secondcategoryvalue, secondcategory)
-        third_dict = add_numbers_from_form(thirdcategoryvalue, thirdcategory)
-        fourth_dict = add_numbers_from_form(fourthcategoryvalue, fourthcategory)
-        fifth_dict = add_numbers_from_form(fifthcategoryvalue, fifthcategory)
-        six_dict = add_numbers_from_form(sixcategoryvalue, sixcategory)
+        try:
+            first_dict = add_numbers_from_form(firstcategoryvalue, firstcategory)
+            second_dict = add_numbers_from_form(secondcategoryvalue, secondcategory)
+            third_dict = add_numbers_from_form(thirdcategoryvalue, thirdcategory)
+            fourth_dict = add_numbers_from_form(fourthcategoryvalue, fourthcategory)
+            fifth_dict = add_numbers_from_form(fifthcategoryvalue, fifthcategory)
+            six_dict = add_numbers_from_form(sixcategoryvalue, sixcategory)
 
+        except:
+            return render(request, 'addexpense.html', {'error_msg': "Nie można dodać tych danych do bazy!"})
 
-        #policzenie i dodanie do bazy danych
-        calculate_and_add_to_db(totalvalue, first_dict, second_dict, third_dict, fourth_dict, fifth_dict, six_dict)
+        try:
+            #policzenie i dodanie do bazy danych
+            calculate_and_add_to_db(totalvalue, first_dict, second_dict, third_dict, fourth_dict, fifth_dict, six_dict)
+            return render(request, 'addexpense.html')
+        except:
+            return render(request, 'addexpense.html', {'error_msg': "Została podana zbyt duża kwota"})
 
-        return render(request, 'addexpense.html')
 
 class AddRepeatable(LoginRequiredMixin, View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def get(self,request):
-        return render(request, 'addrepeatable.html')
+        form = RepeatableExpensesForm()
+        return render(request, 'addrepeatable.html', {'form': form})
 
     def post(self, request):
         #pobranie zmiennych
         firstcategory = request.POST['firstcategory']
         firstcategoryvalue = request.POST['firstcategoryvalue']
 
-        #policzenie sumy z pola formularza
-        first_dict = add_numbers_from_form(firstcategoryvalue, firstcategory)
+        test_variable = True
 
-        #policzenie i dodanie do bazy danych
-        calculate_and_add_to_db_re(first_dict)
+        if firstcategory == "...":
+            test_variable = False
+        else:
+            try:
+                this_month = date.today().month
+                this_year = date.today().year
+                value_to_insert = int(firstcategoryvalue)
+                RepeatableExpenses.objects.create(amount_of_money=value_to_insert, type_of_expense=str(firstcategory), month_of_expense=this_month, year_of_expense=this_year)
+                return render(request, 'addrepeatable.html', {'test': test_variable})
+            except:
+                return render(request, 'addrepeatable.html', {'test': "Została podana zbyt duża kwota!"})
 
-        return render(request, 'addrepeatable.html')
+        return render(request, 'addrepeatable.html', {'test': "Wybierz typ wydatku!"})
 
 class IncomeView(LoginRequiredMixin, View):
 
@@ -557,21 +574,24 @@ class IncomeView(LoginRequiredMixin, View):
         income_amount = request.POST['income_amount']
 
         #function to check if the income is connected to a person
-        def check_add_to_db(who, amount):
-            if who == "...":
-                return None
-            else:
-                return [who, amount]
+        try:
+            def check_add_to_db(who, amount):
+                if who == "...":
+                    return None
+                else:
+                    return [who, amount]
 
-        input = check_add_to_db(income_who, income_amount)
-        if type(input) is list:
-            this_month = date.today().month
-            this_year = date.today().year
-            #Adding to db
-            test_variable = True
-            Income.objects.create(amount_of_money=float(input[1]),
-                                 type_of_income=str(input[0]),
-                                 month_of_income=this_month,
-                                 year_of_income=this_year)
+            input = check_add_to_db(income_who, income_amount)
+            if type(input) is list and not isinstance(input[1], int):
+                this_month = date.today().month
+                this_year = date.today().year
+                #Adding to db
+                test_variable = True
+                Income.objects.create(amount_of_money=int(input[1]),
+                                     type_of_income=str(input[0]),
+                                     month_of_income=this_month,
+                                     year_of_income=this_year)
 
-        return render(request, 'addincome.html', {'test': test_variable})
+            return render(request, 'addincome.html', {'test': test_variable})
+        except:
+            return render(request, 'addincome.html', {'test': "Z"})

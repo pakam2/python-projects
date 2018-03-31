@@ -11,6 +11,7 @@
 
 <br>
   <form action="" method="POST">
+    {% csrf_token %}
     <div class="form-row">
       <div class="col-sm-10">
         <input type="text" class="form-control" name="firstcategoryvalue" placeholder="Wpisz wartość">
@@ -196,6 +197,14 @@
 </form>
   </div></div>
 
+<br>
+{% if error_msg == "Została podana zbyt duża kwota" %}
+<p>Została podana zbyt duża kwota</p>
+{% elif error_msg == "Nie można dodać tych danych do bazy!" %}
+
+{% else %}
+
+{% endif %}
 
 
 </body>
