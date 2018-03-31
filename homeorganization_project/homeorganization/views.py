@@ -12,7 +12,7 @@ from datetime import date
 from calculate_and_add_to_db import calculate_and_add_to_db, calculate_and_add_to_db_re
 from add_numbers_from_form import add_numbers_from_form
 #Imported models
-from .models import Expenses, RepeatableExpenses
+from .models import Expenses, RepeatableExpenses, Income
 from django.db.models import Sum
 #Imported forms
 from .forms import LoginForm
@@ -88,9 +88,6 @@ class LogoutView(View):
 
 
 class MonthlyStatistics(LoginRequiredMixin, View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
         this_month = date.today().month
@@ -259,13 +256,19 @@ class MonthlyStatistics(LoginRequiredMixin, View):
             suma_two = x
 
         #income
-        data_for_db_money_kasia = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                 year_of_expense=this_year,
-                                                                 type_of_income="Kasia").aggregate(Sum('amount_of_money'))
+        data_for_db_money_kasia = Income.objects.filter(month_of_income=this_month,
+                                                                    year_of_income=this_year,
+                                                                    type_of_income="Kasia").aggregate(Sum('amount_of_money'))
         money_kasia = ''
         for x in data_for_db_money_kasia.values():
             money_kasia = x
 
+        data_for_db_money_pawel = Income.objects.filter(month_of_income=this_month,
+                                                                    year_of_income=this_year,
+                                                                    type_of_income="Pawel").aggregate(Sum('amount_of_money'))
+        money_pawel = ''
+        for x in data_for_db_money_pawel.values():
+            money_pawel = x
         return render(request, 'monthlystatistics.html', {'jedzenie': jedzenie,
                                                           'wio': wio,
                                                           'jedzenie_w_pracy': jedzenie_w_pracy,
@@ -289,6 +292,8 @@ class MonthlyStatistics(LoginRequiredMixin, View):
                                                           'przedszkole': przedszkole,
                                                           'kkm': kkm,
                                                           'suma_two': suma_two,
+                                                          'money_kasia': money_kasia,
+                                                          'money_pawel': money_pawel,
                                                           })
     def post(self, request):
 
@@ -541,16 +546,32 @@ class AddRepeatable(LoginRequiredMixin, View):
 
         return render(request, 'addrepeatable.html')
 
-class Income(LoginRequiredMixin, View):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+class IncomeView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'addincome.html')
 
     def post(self, request):
+        test_variable = False
         income_who = request.POST['firstcategory']
-        income = request.POST['income']
-        print(income_who +  " " + income )
-        return render(request, 'addincome.html')
+        income_amount = request.POST['income_amount']
+
+        #function to check if the income is connected to a person
+        def check_add_to_db(who, amount):
+            if who == "...":
+                return None
+            else:
+                return [who, amount]
+
+        input = check_add_to_db(income_who, income_amount)
+        if type(input) is list:
+            this_month = date.today().month
+            this_year = date.today().year
+            #Adding to db
+            test_variable = True
+            Income.objects.create(amount_of_money=float(input[1]),
+                                 type_of_income=str(input[0]),
+                                 month_of_income=this_month,
+                                 year_of_income=this_year)
+
+        return render(request, 'addincome.html', {'test': test_variable})

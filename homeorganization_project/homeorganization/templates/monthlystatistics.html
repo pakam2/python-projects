@@ -56,11 +56,7 @@
        <div class="col-sm-6">
 <table class="table-hover table-bordered">
     <tr><th style="background-color:black; color:white;">Wydatki stałe</th><th style="background-color:black; color:white;">Suma</th></tr>
-    <tr><td>Czynsz</td><td>{% if czynsz is None %}
-                                    0
-                                    {% else %}
-                                        {{ czynsz }}
-                                {% endif %}</td></tr>
+    <tr><td>Czynsz</td><td>{% if czynsz is None %} 0 {% else %} {{ czynsz }} {% endif %}</td></tr>
     <tr><td>Abonament</td><td>{% if abonament is None %} 0 {% else %} {{abonament}} {% endif%}</td></tr>
     <tr><td>Przedszkole</td><td>{% if przedszkole is None %} 0 {% else %} {{przedszkole}} {% endif%}</td></tr>
     <tr><td>KKM</td><td>{% if kkm is None %} 0 {% else %} {{kkm}} {% endif%}</td></tr>
