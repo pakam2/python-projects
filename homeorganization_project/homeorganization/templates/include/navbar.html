@@ -13,17 +13,24 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
-      <li class="dropdown nav-item">
-          <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Budżet domowy<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="nav-item"><a class="navbar-brand" href="/addincome">Dochód</a></li>
-            <li class="nav-item"><a class="navbar-brand" href="/addrepeatable">Koszty stałe</a></li>
-            <li class="nav-item"><a class="navbar-brand" href="/addexpense">Dodaj paragon</a></li>
-          </ul>
-        </li>
+        <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Budżet domowy<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="nav-item"><a class="navbar-brand" href="/addincome">Dochód</a></li>
+              <li class="nav-item"><a class="navbar-brand" href="/addrepeatable">Koszty stałe</a></li>
+              <li class="nav-item"><a class="navbar-brand" href="/addexpense">Dodaj paragon</a></li>
+            </ul>
+          </li>
       <li class="nav-item">
-        <a class="navbar-brand" href="/shoppinglist">Lista zakupów</a>
-        <a class="navbar-brand" href="/monthlystatistics">Statystyki na obecny miesiąc</a>
+
+        <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Statystyki<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class="nav-item"><a class="navbar-brand" href="/monthlystatistics">Na obecny miesiąc</a></li>
+              <li class="nav-item"><a class="navbar-brand" href="/addrepeatable">Na wybrany miesiąc</a></li>
+            </ul>
+          </li>
+                <a class="navbar-brand" href="/shoppinglist">Lista zakupów</a>
         <button type="button" class="btn btn-default btn-sm">
           <a href="/logout" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a>
         </button>

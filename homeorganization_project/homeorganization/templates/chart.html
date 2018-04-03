@@ -2,12 +2,18 @@
 
 {% block body %}
 {% load static %}
+<h3>Statystyki na obecny miesiąc</h3>
 <br>
-
-<canvas id="myChart" style="position: relative; height:20vh; width:40vw"></canvas><br>
+<canvas id="doughnut-chart" style="position: relative; height:50vh; width:50vw"></canvas>
+<hr>
+<canvas id="bar-chart-horizontal" style="position: relative; height:50vh; width:50vw"></canvas>
+<hr>
+<canvas id="bar-chart" style="position: relative; height:50vh; width:50vw"></canvas><br>
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
+
+
+
+new Chart(document.getElementById("bar-chart"), {
     type: 'bar',
     data: {
         labels: ["Wydatki"],
@@ -18,8 +24,8 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 99, 132, 0.2)',
 
 
-
             ],
+
             borderColor: [
                 'rgba(255,99,132,1)',
 
@@ -259,6 +265,10 @@ var myChart = new Chart(ctx, {
 
 
     options: {
+      title: {
+          display: true,
+          text: 'Wydatki "zmienne"'
+        },
         scales: {
             yAxes: [{
 
@@ -266,7 +276,58 @@ var myChart = new Chart(ctx, {
                     beginAtZero:true
                 }
             }]
+        },
+
+    }
+});
+
+
+//Doughnut chart "income"
+new Chart(document.getElementById("doughnut-chart"), {
+    type: 'doughnut',
+    data: {
+      labels: ["Paweł", "Kasia"],
+      datasets: [
+        {
+          label: "Przychód miesięczny",
+          backgroundColor: ["#3e95cd", "#8e5ea2"],
+          data: [{% if  money_pawel is None%} 0 {% else %} {{money_pawel}} {% endif %}, {% if money_kasia is None%} 0 {% else %} {{money_kasia}} {% endif%}]
         }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Przychód miesięczny',
+        animation:{
+        duration: 3000,
+        }
+      }
+    }
+});
+
+
+new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["Czynsz", "Przedszkole", "Abonament", "KKM"],
+      datasets: [
+        {
+          label: "Wydatki 'stałe'",
+          backgroundColor: ["#c45850", "#8e5ea2","#3cba9f","#e8c3b9"],
+          data: [{%if czynsz is None%} 0 {% else %}{{czynsz}} {% endif %},
+            {%if przedszkole is None%} 0 {% else %}{{przedszkole}} {% endif %},
+            {%if abonament is None%} 0 {% else %}{{abonament}} {% endif %},
+            {%if tickets is None%} 0 {% else %}{{tickets}} {% endif %},1]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Wydatki "stałe"'
+      }
     }
 });
 

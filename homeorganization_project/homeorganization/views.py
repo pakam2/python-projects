@@ -19,7 +19,6 @@ from .forms import LoginForm, RepeatableExpensesForm
 
 # Create your views here.
 
-
 class LoginView(View):
 
     def get(self, request):
@@ -469,6 +468,22 @@ class MonthlyStatistics(LoginRequiredMixin, View):
             for x in data_from_db_suma_two.values():
                 suma_two = x
 
+            #Income
+            data_for_db_money_kasia = Income.objects.filter(month_of_income=this_month,
+                                                            year_of_income=this_year,
+                                                            type_of_income="Kasia").aggregate(Sum('amount_of_money'))
+
+            money_kasia = ''
+            for x in data_for_db_money_kasia.values():
+                money_kasia = x
+
+            data_for_db_money_pawel = Income.objects.filter(month_of_income=this_month,
+                                                            year_of_income=this_year,
+                                                            type_of_income="Pawel").aggregate(Sum('amount_of_money'))
+            money_pawel = ''
+            for x in data_for_db_money_pawel.values():
+                money_pawel = x
+
             return render(request, 'chart.html', {'jedzenie': jedzenie,
                                                     'wio': wio,
                                                     'jedzenie_w_pracy': jedzenie_w_pracy,
@@ -490,9 +505,14 @@ class MonthlyStatistics(LoginRequiredMixin, View):
                                                     'czynsz': czynsz,
                                                     'abonament': abonament,
                                                     'przedszkole': przedszkole,
-                                                    'kkm': kkm,
+                                                    'tickets': kkm,
                                                     'suma_two': suma_two,
+                                                    'money_kasia': money_kasia,
+                                                    'money_pawel': money_pawel,
                                                     })
+
+class ChooseMonthlyStatistics(LoginRequiredMixin, View):
+    pass
 
 class AddExpense(LoginRequiredMixin, View):
 
@@ -525,15 +545,10 @@ class AddExpense(LoginRequiredMixin, View):
             fifth_dict = add_numbers_from_form(fifthcategoryvalue, fifthcategory)
             six_dict = add_numbers_from_form(sixcategoryvalue, sixcategory)
 
-        except:
-            return render(request, 'addexpense.html', {'error_msg': "Nie można dodać tych danych do bazy!"})
-
-        try:
-            #policzenie i dodanie do bazy danych
             calculate_and_add_to_db(totalvalue, first_dict, second_dict, third_dict, fourth_dict, fifth_dict, six_dict)
             return render(request, 'addexpense.html')
         except:
-            return render(request, 'addexpense.html', {'error_msg': "Została podana zbyt duża kwota"})
+            return render(request, 'addexpense.html', {'error_msg': "Nie można dodać tych danych do bazy!"})
 
 
 class AddRepeatable(LoginRequiredMixin, View):
