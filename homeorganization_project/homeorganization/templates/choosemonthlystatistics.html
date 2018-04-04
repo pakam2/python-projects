@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+
+
+<div class="page-header">
+    <h2>Wybierz dowolną statystykę</h2>
+
+  </div>
+
+<br>
+<br>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <input type="month" class="form-control" name="myMonth" id="myMonth">
+      </div>
+      <div class="col-sm-8"></div>
+
+    </div>
+    <div class="form-row"></div><br>
+<div class="form-row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-3">
+       <button type="submit" class="btn btn-primary">Pobierz dane</button>
+       </div>
+       </div>
+</form>
+
+
+<br>
+{% if error_msg == "Została podana zbyt duża kwota" %}
+<p>Została podana zbyt duża kwota</p>
+{% elif error_msg == "Nie można dodać tych danych do bazy!" %}
+
+{% else %}
+
+{% endif %}
+
+<p>{{error_msg}}</p>
+</body>
+</html>
+{% endblock %}
