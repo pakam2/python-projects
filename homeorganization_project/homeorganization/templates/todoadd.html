@@ -4,6 +4,7 @@
 {% load static %}
 <h1>Todo  </h1>
 <form class="" action="" method="post">
+  {% csrf_token %}
 <div class="form-row">
   {{form}}
   </div>
@@ -19,4 +20,12 @@
          </div>
   </div>
 </form>
+<br>
+<br>
+{% if msg is None %}
+{% else %}
+    <p>{{msg}}<p>
+{% endif %}
+
+
 {% endblock %}

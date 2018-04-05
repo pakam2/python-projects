@@ -17,7 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from homeorganization.views import LoginView, MainSite, LogoutView, \
                                     ShoppingListView, AddExpense, AddRepeatable, \
-                                    MonthlyStatistics, IncomeView, ChooseMonthlyStatistics, ToDoView
+                                    MonthlyStatistics, IncomeView, ChooseMonthlyStatistics, ToDoAddView, \
+                                    ToDoListView, ToDoDelete
 
 
 
@@ -33,5 +34,8 @@ urlpatterns = [
     url(r'^addrepeatable/$', AddRepeatable.as_view()),
     url(r'^monthlystatistics/$', MonthlyStatistics.as_view()),
     url(r'^choosemonthlystatistics/$', ChooseMonthlyStatistics.as_view()),
-    url(r'^todo/$', ToDoView.as_view(), name='todo-view'),
+    url(r'^todolist/$', ToDoListView.as_view(), name='todo-list-view'),
+    url(r'^todoadd/$', ToDoAddView.as_view(), name='todo-add-view'),
+    url(r'^tododelete/(?P<pk>\d+)$', ToDoDelete.as_view(), name='todo-delete-view'),
+
 ]

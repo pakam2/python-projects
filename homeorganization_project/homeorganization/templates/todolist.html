@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+<h1>Zadania</h1>
+
+<div class="row">
+
+ <div class="col-sm-12">
+    {% for task in list_of_tasks reversed%}
+      {{task.id}}, {{task.task_text}}, {{task.whos_task}}, {{task.end_date}} <a href="{% url 'todo-delete-view' task.id %}">delete</a><br>
+    {% endfor %}
+ </div>
+
+</div>
+
+{% endblock %}

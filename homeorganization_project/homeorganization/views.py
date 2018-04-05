@@ -6,16 +6,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from datetime import date
+from django.views.generic.edit import DeleteView
+from django.core.urlresolvers import reverse_lazy
+from datetime import date, datetime
+
 
 #Imported functions that are made to calculate data
 from calculate_and_add_to_db import calculate_and_add_to_db, calculate_and_add_to_db_re
 from add_numbers_from_form import add_numbers_from_form
 #Imported models
-from .models import Expenses, RepeatableExpenses, Income
+from .models import Expenses, RepeatableExpenses, Income, ToDoModel
 from django.db.models import Sum
 #Imported forms
-from .forms import LoginForm, ToDoForm
+from .forms import LoginForm, ToDoForm, RepeatableExpensesForm
 #RepeatableExpensesForm, ToDoForm
 
 # Create your views here.
@@ -849,8 +852,44 @@ class IncomeView(LoginRequiredMixin, View):
         except:
             return render(request, 'addincome.html', {'test': "Z"})
 
-class ToDoView(LoginRequiredMixin, View):
+class ToDoAddView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = ToDoForm()
-        return render(request, 'todo.html', {'form': form})
+        return render(request, 'todoadd.html', {'form': form})
+
+    def post(self, request):
+        form = ToDoForm(request.POST)
+        if form.is_valid():
+            end_date = request.POST['endDate']
+            if end_date == '':
+                new_form = ToDoForm()
+                return render(request, 'todoadd.html', {'form': new_form,
+                                                     'msg': "Wybierz datę zakończnie zadania!"})
+            else:
+                today = date.today()
+                if datetime.strptime(end_date, '%Y-%m-%d') > datetime.strptime(str(today), '%Y-%m-%d'):
+                    text_field = form.cleaned_data['text_field']
+                    whos_task = form.cleaned_data['whos_task']
+                    ToDoModel.objects.create(task_text=text_field,
+                                            whos_task=whos_task,
+                                            end_date=end_date)
+
+                    new_form = ToDoForm()
+                    return render(request, 'todoadd.html', {'form': new_form,
+                                                        'msg': "Dodano zadanie!"})
+                else:
+                    new_form = ToDoForm()
+                    return render(request, 'todoadd.html', {'form': new_form,
+                                                        'msg': "Nie można wybrać daty wcześniejszej niż dzisiejsza!"})
+
+class ToDoListView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        list_of_tasks = ToDoModel.objects.all()
+        return render(request, 'todolist.html', {'list_of_tasks': list_of_tasks})
+
+
+class ToDoDelete(DeleteView):
+    model = ToDoModel
+    success_url = reverse_lazy('todo-list-view')

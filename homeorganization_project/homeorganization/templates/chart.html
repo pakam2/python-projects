@@ -10,9 +10,6 @@
 <hr>
 <canvas id="bar-chart" style="position: relative; height:50vh; width:50vw"></canvas><br>
 <script>
-
-
-
 new Chart(document.getElementById("bar-chart"), {
     type: 'bar',
     data: {
@@ -22,13 +19,9 @@ new Chart(document.getElementById("bar-chart"), {
             data: [{% if jedzenie is None %} 0 {% else %} {{jedzenie}} {% endif %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
-
-
             ],
-
             borderColor: [
                 'rgba(255,99,132,1)',
-
             ],
             borderWidth: 1
         }
@@ -37,11 +30,9 @@ new Chart(document.getElementById("bar-chart"), {
             data: [{% if jedzenie_w_pracy is None %} 0 {% else %} {{ jedzenie_w_pracy }} {% endif %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
-
             ],
             borderColor: [
                 'rgba(255,99,132,1)',
-
             ],
             borderWidth: 1
         },
@@ -50,11 +41,9 @@ new Chart(document.getElementById("bar-chart"), {
           data: [{% if wio is None %} 0 {% else%} {{wio}} {% endif %}],
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
-
           ],
           borderColor: [
               'rgba(255,99,132,1)',
-
           ],
           borderWidth: 1
       },
@@ -68,10 +57,8 @@ new Chart(document.getElementById("bar-chart"), {
         borderColor: [
             'rgba(255,99,132,1)',
             'rgba(255,99,132,1)',
-
         ],
         borderWidth: 1
-
     },      {
             label: 'Prezenty',
             data: [{% if prezenty is None %} 0 {% else %} {{prezenty}} {% endif %}],
@@ -82,10 +69,8 @@ new Chart(document.getElementById("bar-chart"), {
             borderColor: [
                 'rgba(255,99,132,1)',
                 'rgba(255,99,132,1)',
-
             ],
             borderWidth: 1
-
         },
         {
               label: 'Przekąski',
@@ -97,10 +82,8 @@ new Chart(document.getElementById("bar-chart"), {
               borderColor: [
                   'rgba(255,99,132,1)',
                   'rgba(255,99,132,1)',
-
               ],
               borderWidth: 1
-
           },
           {
                 label: 'Słodycze',
@@ -112,10 +95,8 @@ new Chart(document.getElementById("bar-chart"), {
                 borderColor: [
                     'rgba(255,99,132,1)',
                     'rgba(255,99,132,1)',
-
                 ],
                 borderWidth: 1
-
             },
             {
                   label: 'Zdrowie',
@@ -127,10 +108,8 @@ new Chart(document.getElementById("bar-chart"), {
                   borderColor: [
                       'rgba(255,99,132,1)',
                       'rgba(255,99,132,1)',
-
                   ],
                   borderWidth: 1
-
               },
               {
                     label: 'Artykuły papiernicze',
@@ -142,10 +121,8 @@ new Chart(document.getElementById("bar-chart"), {
                     borderColor: [
                         'rgba(255,99,132,1)',
                         'rgba(255,99,132,1)',
-
                     ],
                     borderWidth: 1
-
                 },
                 {
                       label: 'Książki',
@@ -157,10 +134,8 @@ new Chart(document.getElementById("bar-chart"), {
                       borderColor: [
                           'rgba(255,99,132,1)',
                           'rgba(255,99,132,1)',
-
                       ],
                       borderWidth: 1
-
                   },
                   {
                         label: 'Zabawki',
@@ -172,10 +147,8 @@ new Chart(document.getElementById("bar-chart"), {
                         borderColor: [
                             'rgba(255,99,132,1)',
                             'rgba(255,99,132,1)',
-
                         ],
                         borderWidth: 1
-
                     },
                     {
                           label: 'Alkohol',
@@ -187,10 +160,8 @@ new Chart(document.getElementById("bar-chart"), {
                           borderColor: [
                               'rgba(255,99,132,1)',
                               'rgba(255,99,132,1)',
-
                           ],
                           borderWidth: 1
-
                       },
                       {
                             label: 'Kosmetyki',
@@ -202,10 +173,8 @@ new Chart(document.getElementById("bar-chart"), {
                             borderColor: [
                                 'rgba(255,99,132,1)',
                                 'rgba(255,99,132,1)',
-
                             ],
                             borderWidth: 1
-
                         },
                         {
                               label: 'Chemia',
@@ -217,10 +186,8 @@ new Chart(document.getElementById("bar-chart"), {
                               borderColor: [
                                   'rgba(255,99,132,1)',
                                   'rgba(255,99,132,1)',
-
                               ],
                               borderWidth: 1
-
                           },
                           {
                                 label: 'Ubrania',
@@ -232,10 +199,8 @@ new Chart(document.getElementById("bar-chart"), {
                                 borderColor: [
                                     'rgba(255,99,132,1)',
                                     'rgba(255,99,132,1)',
-
                                 ],
                                 borderWidth: 1
-
                             },
                             {
                                   label: 'inne',
@@ -247,23 +212,11 @@ new Chart(document.getElementById("bar-chart"), {
                                   borderColor: [
                                       'rgba(255,99,132,1)',
                                       'rgba(255,99,132,1)',
-
                                   ],
                                   borderWidth: 1
-
                               }
-
-
-
       ],
-
-
-
     },
-
-
-
-
     options: {
       title: {
           display: true,
@@ -271,17 +224,13 @@ new Chart(document.getElementById("bar-chart"), {
         },
         scales: {
             yAxes: [{
-
                 ticks: {
                     beginAtZero:true
                 }
             }]
         },
-
     }
 });
-
-
 //Doughnut chart "income"
 new Chart(document.getElementById("doughnut-chart"), {
     type: 'doughnut',
@@ -291,7 +240,9 @@ new Chart(document.getElementById("doughnut-chart"), {
         {
           label: "Przychód miesięczny",
           backgroundColor: ["#3e95cd", "#8e5ea2"],
-          data: [{% if  money_pawel is None%} 0 {% else %} {{money_pawel}} {% endif %}, {% if money_kasia is None%} 0 {% else %} {{money_kasia}} {% endif%}]
+          data: [{% if  money_pawel is None%} 0 {% else %} {{money_pawel}} {% endif %},
+            // {% if money_kasia is None%} 0 {% else %} {{money_kasia}} {% endif%}]
+              333]
         }
       ]
     },
@@ -300,37 +251,11 @@ new Chart(document.getElementById("doughnut-chart"), {
         display: true,
         text: 'Przychód miesięczny',
         animation:{
-        duration: 3000,
-        }
+        duration: 1000,
+      },
       }
     }
 });
-
-
-new Chart(document.getElementById("bar-chart-horizontal"), {
-    type: 'horizontalBar',
-    data: {
-      labels: ["Czynsz", "Przedszkole", "Abonament", "KKM"],
-      datasets: [
-        {
-          label: "Wydatki 'stałe'",
-          backgroundColor: ["#c45850", "#8e5ea2","#3cba9f","#e8c3b9"],
-          data: [{%if czynsz is None%} 0 {% else %}{{czynsz}} {% endif %},
-            {%if przedszkole is None%} 0 {% else %}{{przedszkole}} {% endif %},
-            {%if abonament is None%} 0 {% else %}{{abonament}} {% endif %},
-            {%if tickets is None%} 0 {% else %}{{tickets}} {% endif %},1]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Wydatki "stałe"'
-      }
-    }
-});
-
 </script>
 
   {% endblock %}

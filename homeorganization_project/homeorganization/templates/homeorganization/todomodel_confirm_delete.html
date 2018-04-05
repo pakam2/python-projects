@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+<form method="post">{% csrf_token %}
+    Zakończyć zadanie? ?
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}
