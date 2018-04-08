@@ -48,7 +48,7 @@ class MainSite(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.is_authenticated():
-            return render(request, 'main.html')
+            return render(request, 'main.html', {'time_to_show': datetime.now()})
 
 
 class ShoppingListView(LoginRequiredMixin, View):
@@ -532,228 +532,232 @@ class ChooseMonthlyStatistics(LoginRequiredMixin, View):
 
     def post(self,request):
         dateOfStatistic = request.POST['myMonth'].split("-")
-        chosenYear = dateOfStatistic[0]
-        chosenMonth = dateOfStatistic[1]
-        #print(dateOfStatistic[1])
-        data_from_db_jedzenie = Expenses.objects.filter(month_of_expense=chosenMonth,
-                                                        year_of_expense=chosenYear,
-                                                        type_of_expense='Jedzenie').aggregate(Sum('amount_of_money'))
-        if data_from_db_jedzenie['amount_of_money__sum'] is None:
-
-            return render(request, 'choosemonthlystatistics.html', {'error_msg': "Nie mam statystyk na wybrany okres!"})
-        else:
-
-            this_month = chosenMonth
-            this_year = chosenYear
-
-            monthName = {'01': 'styczeń', '02': "luty", "03": "marzec", "04": "kwiecień", "05": "maj",
-                        '06': 'czerwiec', '07': 'lipiec', '08': 'sierpień', '09': 'wrzesień', "10": 'październik',
-                        '11': 'listopad', '12': 'grudzień'}
-
-            data_from_db_jedzenie = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
+        try:
+            chosenYear = dateOfStatistic[0]
+            chosenMonth = dateOfStatistic[1]
+            #print(dateOfStatistic[1])
+            data_from_db_jedzenie = Expenses.objects.filter(month_of_expense=chosenMonth,
+                                                            year_of_expense=chosenYear,
                                                             type_of_expense='Jedzenie').aggregate(Sum('amount_of_money'))
-            jedzenie = ''
-            for x in data_from_db_jedzenie.values():
-                jedzenie = x
+            if data_from_db_jedzenie['amount_of_money__sum'] is None:
 
-            data_from_db_wio = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Warzywa i owoce').aggregate(Sum('amount_of_money'))
-            wio = ''
-            for x in data_from_db_wio.values():
-                wio = x
+                return render(request, 'choosemonthlystatistics.html', {'error_msg': "Nie mam statystyk na wybrany okres!"})
+            else:
 
-            data_from_db_jwp = Expenses.objects.filter(month_of_expense=this_month,
-                                                       year_of_expense=this_year,
-                                                       type_of_expense='Jedzenie w pracy').aggregate(Sum('amount_of_money'))
-            jedzenie_w_pracy = ''
-            for x in data_from_db_jwp.values():
-                jedzenie_w_pracy = x
+                this_month = chosenMonth
+                this_year = chosenYear
 
-            data_from_db_jnm = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Jedzenie na miescie').aggregate(Sum('amount_of_money'))
+                monthName = {'01': 'styczeń', '02': "luty", "03": "marzec", "04": "kwiecień", "05": "maj",
+                            '06': 'czerwiec', '07': 'lipiec', '08': 'sierpień', '09': 'wrzesień', "10": 'październik',
+                            '11': 'listopad', '12': 'grudzień'}
 
-            jedzenie_na_miescie = ''
-            for x in data_from_db_jnm.values():
-                jedzenie_na_miescie = x
+                data_from_db_jedzenie = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Jedzenie').aggregate(Sum('amount_of_money'))
+                jedzenie = ''
+                for x in data_from_db_jedzenie.values():
+                    jedzenie = x
 
-            data_from_db_soda = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Woda sodowa').aggregate(Sum('amount_of_money'))
+                data_from_db_wio = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Warzywa i owoce').aggregate(Sum('amount_of_money'))
+                wio = ''
+                for x in data_from_db_wio.values():
+                    wio = x
 
-            woda_sodowa = ''
-            for x in data_from_db_soda.values():
-                woda_sodowa = x
+                data_from_db_jwp = Expenses.objects.filter(month_of_expense=this_month,
+                                                           year_of_expense=this_year,
+                                                           type_of_expense='Jedzenie w pracy').aggregate(Sum('amount_of_money'))
+                jedzenie_w_pracy = ''
+                for x in data_from_db_jwp.values():
+                    jedzenie_w_pracy = x
 
-            data_from_db_przekaski = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Przekaski').aggregate(Sum('amount_of_money'))
-            przekaski = ''
-            for x in data_from_db_przekaski.values():
-                przekaski = x
+                data_from_db_jnm = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Jedzenie na miescie').aggregate(Sum('amount_of_money'))
 
-            data_from_db_sweets = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Slodycze').aggregate(Sum('amount_of_money'))
-            sweets = ''
-            for x in data_from_db_sweets.values():
-                sweets = x
+                jedzenie_na_miescie = ''
+                for x in data_from_db_jnm.values():
+                    jedzenie_na_miescie = x
 
-            data_from_db_h = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Zdrowie (leki etc)').aggregate(Sum('amount_of_money'))
-            zdrowie = ''
-            for x in data_from_db_h.values():
-                zdrowie = x
+                data_from_db_soda = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Woda sodowa').aggregate(Sum('amount_of_money'))
 
-            data_from_db_art = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Artykuly papiernicze').aggregate(Sum('amount_of_money'))
-            art = ''
-            for x in data_from_db_art.values():
-                art = x
+                woda_sodowa = ''
+                for x in data_from_db_soda.values():
+                    woda_sodowa = x
 
-            data_from_db_books = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Ksiazki i gazety').aggregate(Sum('amount_of_money'))
-            books = ''
-            for x in data_from_db_books.values():
-                books = x
+                data_from_db_przekaski = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Przekaski').aggregate(Sum('amount_of_money'))
+                przekaski = ''
+                for x in data_from_db_przekaski.values():
+                    przekaski = x
 
-            data_from_db_toys = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Zabawki/puzzle etc').aggregate(Sum('amount_of_money'))
-            toys = ''
-            for x in data_from_db_toys.values():
-                toys = x
+                data_from_db_sweets = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Slodycze').aggregate(Sum('amount_of_money'))
+                sweets = ''
+                for x in data_from_db_sweets.values():
+                    sweets = x
 
-            data_from_db_alkohol = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Alkohol').aggregate(Sum('amount_of_money'))
-            alkohol = ''
-            for x in data_from_db_alkohol.values():
-                alkohol = x
+                data_from_db_h = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Zdrowie (leki etc)').aggregate(Sum('amount_of_money'))
+                zdrowie = ''
+                for x in data_from_db_h.values():
+                    zdrowie = x
 
-            data_from_db_kos = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Kosmetyki').aggregate(Sum('amount_of_money'))
-            kos = ''
-            for x in data_from_db_kos.values():
-                kos = x
+                data_from_db_art = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Artykuly papiernicze').aggregate(Sum('amount_of_money'))
+                art = ''
+                for x in data_from_db_art.values():
+                    art = x
 
-            data_from_db_chemia = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Chemia').aggregate(Sum('amount_of_money'))
-            chemia = ''
-            for x in data_from_db_chemia.values():
-                chemia = x
+                data_from_db_books = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Ksiazki i gazety').aggregate(Sum('amount_of_money'))
+                books = ''
+                for x in data_from_db_books.values():
+                    books = x
 
-            data_from_db_clothes = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='Ubrania').aggregate(Sum('amount_of_money'))
-            clothes = ''
-            for x in data_from_db_clothes.values():
-                clothes = x
+                data_from_db_toys = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Zabawki/puzzle etc').aggregate(Sum('amount_of_money'))
+                toys = ''
+                for x in data_from_db_toys.values():
+                    toys = x
 
-            data_from_db_gifts = Expenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year,
-                                                                    type_of_expense='Prezenty').aggregate(Sum('amount_of_money'))
-            prezenty = ''
-            for x in data_from_db_gifts.values():
-                prezenty = x
+                data_from_db_alkohol = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Alkohol').aggregate(Sum('amount_of_money'))
+                alkohol = ''
+                for x in data_from_db_alkohol.values():
+                    alkohol = x
 
-            data_from_db_other = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year,
-                                                            type_of_expense='inne wydatki').aggregate(Sum('amount_of_money'))
-            other = ''
-            for x in data_from_db_other.values():
-                other = x
+                data_from_db_kos = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Kosmetyki').aggregate(Sum('amount_of_money'))
+                kos = ''
+                for x in data_from_db_kos.values():
+                    kos = x
 
-            data_from_db_suma = Expenses.objects.filter(month_of_expense=this_month,
-                                                            year_of_expense=this_year).aggregate(Sum('amount_of_money'))
-            suma = ''
-            for x in data_from_db_suma.values():
-                suma = x
+                data_from_db_chemia = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Chemia').aggregate(Sum('amount_of_money'))
+                chemia = ''
+                for x in data_from_db_chemia.values():
+                    chemia = x
 
-            data_from_db_czynsz = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year,
-                                                                    type_of_expense='czynsz').aggregate(Sum('amount_of_money'))
-            czynsz = ''
-            for x in data_from_db_czynsz.values():
-                czynsz = x
+                data_from_db_clothes = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='Ubrania').aggregate(Sum('amount_of_money'))
+                clothes = ''
+                for x in data_from_db_clothes.values():
+                    clothes = x
 
-            data_from_db_abonament = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year,
-                                                                    type_of_expense='abonament').aggregate(Sum('amount_of_money'))
-            abonament = ''
-            for x in data_from_db_abonament.values():
-                abonament = x
+                data_from_db_gifts = Expenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year,
+                                                                        type_of_expense='Prezenty').aggregate(Sum('amount_of_money'))
+                prezenty = ''
+                for x in data_from_db_gifts.values():
+                    prezenty = x
 
-            data_from_db_przedszkole = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year,
-                                                                    type_of_expense='przedszkole').aggregate(Sum('amount_of_money'))
-            przedszkole = ''
-            for x in data_from_db_przedszkole.values():
-                przedszkole = x
+                data_from_db_other = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year,
+                                                                type_of_expense='inne wydatki').aggregate(Sum('amount_of_money'))
+                other = ''
+                for x in data_from_db_other.values():
+                    other = x
 
-            data_from_db_kkm = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year,
-                                                                    type_of_expense='kkm').aggregate(Sum('amount_of_money'))
-            kkm = ''
-            for x in data_from_db_kkm.values():
-                kkm = x
+                data_from_db_suma = Expenses.objects.filter(month_of_expense=this_month,
+                                                                year_of_expense=this_year).aggregate(Sum('amount_of_money'))
+                suma = ''
+                for x in data_from_db_suma.values():
+                    suma = x
 
-            data_from_db_suma_two = RepeatableExpenses.objects.filter(month_of_expense=this_month,
-                                                                     year_of_expense=this_year).aggregate(Sum('amount_of_money'))
-            suma_two = ''
-            for x in data_from_db_suma_two.values():
-                suma_two = x
+                data_from_db_czynsz = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year,
+                                                                        type_of_expense='czynsz').aggregate(Sum('amount_of_money'))
+                czynsz = ''
+                for x in data_from_db_czynsz.values():
+                    czynsz = x
 
-            #Income
-            data_for_db_money_kasia = Income.objects.filter(month_of_income=this_month,
-                                                            year_of_income=this_year,
-                                                            type_of_income="Kasia").aggregate(Sum('amount_of_money'))
+                data_from_db_abonament = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year,
+                                                                        type_of_expense='abonament').aggregate(Sum('amount_of_money'))
+                abonament = ''
+                for x in data_from_db_abonament.values():
+                    abonament = x
 
-            money_kasia = ''
-            for x in data_for_db_money_kasia.values():
-                money_kasia = x
+                data_from_db_przedszkole = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year,
+                                                                        type_of_expense='przedszkole').aggregate(Sum('amount_of_money'))
+                przedszkole = ''
+                for x in data_from_db_przedszkole.values():
+                    przedszkole = x
 
-            data_for_db_money_pawel = Income.objects.filter(month_of_income=this_month,
-                                                            year_of_income=this_year,
-                                                            type_of_income="Pawel").aggregate(Sum('amount_of_money'))
-            money_pawel = ''
-            for x in data_for_db_money_pawel.values():
-                money_pawel = x
+                data_from_db_kkm = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year,
+                                                                        type_of_expense='kkm').aggregate(Sum('amount_of_money'))
+                kkm = ''
+                for x in data_from_db_kkm.values():
+                    kkm = x
 
-            return render(request, 'chosenmonthlystatistics.html', {'monthName': monthName[str(this_month)],
-                                                                    'jedzenie': jedzenie,
-                                                                    'wio': wio,
-                                                                    'jedzenie_w_pracy': jedzenie_w_pracy,
-                                                                    'jedzenie_na_miescie': jedzenie_na_miescie,
-                                                                    'woda_sodowa': woda_sodowa,
-                                                                    'prezenty': prezenty,
-                                                                    'przekaski': przekaski,
-                                                                    'slodycze': sweets,
-                                                                    'zdrowie': zdrowie,
-                                                                    'art': art,
-                                                                    'books': books,
-                                                                    'toys': toys,
-                                                                    'alkohol': alkohol,
-                                                                    'kosmetyki': kos,
-                                                                    'chemia': chemia,
-                                                                    'ubrania': clothes,
-                                                                    'inne': other,
-                                                                    'suma': suma,
-                                                                    'czynsz': czynsz,
-                                                                    'abonament': abonament,
-                                                                    'przedszkole': przedszkole,
-                                                                    'tickets': kkm,
-                                                                    'suma_two': suma_two,
-                                                                    'money_kasia': money_kasia,
-                                                                    'money_pawel': money_pawel,
-                                                                    })
+                data_from_db_suma_two = RepeatableExpenses.objects.filter(month_of_expense=this_month,
+                                                                         year_of_expense=this_year).aggregate(Sum('amount_of_money'))
+                suma_two = ''
+                for x in data_from_db_suma_two.values():
+                    suma_two = x
+
+                #Income
+                data_for_db_money_kasia = Income.objects.filter(month_of_income=this_month,
+                                                                year_of_income=this_year,
+                                                                type_of_income="Kasia").aggregate(Sum('amount_of_money'))
+
+                money_kasia = ''
+                for x in data_for_db_money_kasia.values():
+                    money_kasia = x
+
+                data_for_db_money_pawel = Income.objects.filter(month_of_income=this_month,
+                                                                year_of_income=this_year,
+                                                                type_of_income="Pawel").aggregate(Sum('amount_of_money'))
+                money_pawel = ''
+                for x in data_for_db_money_pawel.values():
+                    money_pawel = x
+
+                return render(request, 'chosenmonthlystatistics.html', {'monthName': monthName[str(this_month)],
+                                                                        'jedzenie': jedzenie,
+                                                                        'wio': wio,
+                                                                        'jedzenie_w_pracy': jedzenie_w_pracy,
+                                                                        'jedzenie_na_miescie': jedzenie_na_miescie,
+                                                                        'woda_sodowa': woda_sodowa,
+                                                                        'prezenty': prezenty,
+                                                                        'przekaski': przekaski,
+                                                                        'slodycze': sweets,
+                                                                        'zdrowie': zdrowie,
+                                                                        'art': art,
+                                                                        'books': books,
+                                                                        'toys': toys,
+                                                                        'alkohol': alkohol,
+                                                                        'kosmetyki': kos,
+                                                                        'chemia': chemia,
+                                                                        'ubrania': clothes,
+                                                                        'inne': other,
+                                                                        'suma': suma,
+                                                                        'czynsz': czynsz,
+                                                                        'abonament': abonament,
+                                                                        'przedszkole': przedszkole,
+                                                                        'tickets': kkm,
+                                                                        'suma_two': suma_two,
+                                                                        'money_kasia': money_kasia,
+                                                                        'money_pawel': money_pawel,
+                                                                        })
+        except:
+            return render(request, 'choosemonthlystatistics.html', {'error_msg': "Nie mam statystyk na wybrany okres!"})
+
 
 class AddExpense(LoginRequiredMixin, View):
 

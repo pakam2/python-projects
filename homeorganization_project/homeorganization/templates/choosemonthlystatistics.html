@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{% load static %}
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
+
+</style>
 <br>
 
 
 <div class="page-header">
-    <h2>Wybierz dowolną statystykę</h2>
+    <h2><b>Wybierz dowolną statystykę</b></h2>
 
   </div>
 
@@ -14,19 +30,20 @@
   <form action="" method="POST">
     {% csrf_token %}
     <div class="form-row">
-      <div class="col-sm-2"></div>
+      <div class="col-sm-1"></div>
       <div class="col-sm-2">
         <input type="month" class="form-control" name="myMonth" id="myMonth">
       </div>
-      <div class="col-sm-8"></div>
+      <div class="col-sm-9"></div>
 
     </div>
     <div class="form-row"></div><br>
 <div class="form-row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-1">
        <button type="submit" class="btn btn-primary">Pobierz dane</button>
        </div>
+       <div class"col-sm-10"></div>
        </div>
 </form>
 

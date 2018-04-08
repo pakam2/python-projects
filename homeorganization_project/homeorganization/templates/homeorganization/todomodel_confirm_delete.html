@@ -2,9 +2,29 @@
 
 {% block body %}
 {% load static %}
+
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
+th {
+  color:#0033cc;
+}
+
+</style>
+<br>
 <form method="post">{% csrf_token %}
-    Zakończyć zadanie? ?
-    <input type="submit" value="Submit" />
+    Zakończyć zadanie?
+    <input type="submit" value="Zakończ" />
 </form>
 
 {% endblock %}

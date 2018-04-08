@@ -9,10 +9,10 @@ WHO = (
     ('Kasia', 'Kasia'),)
 
 RepetableEx = (
-    ('Ab', 'Abonament'),
-    ('Pr', 'Przedszkole'),
-    ('CZ', 'Czynsz'),
-    ('KK', 'Kkm'),)
+    ('Abonament', 'Abonament'),
+    ('Przedszkole', 'Przedszkole'),
+    ('Czynsz', 'Czynsz'),
+    ('Kkm', 'Kkm'),)
 
 
 

@@ -2,7 +2,7 @@
 {% block title %}Lista zakupów{% endblock %}
 
 {% block body %}
-
+{% load static %}
 <br>
 <script>
 $( function() {
@@ -11,6 +11,18 @@ $( function() {
 } );
 </script>
 <style>
+    body {
+      background-image: url("{% static 'bg.jpg' %}");
+      height: 100%;
+      background-position: center;
+      background-repeat: repeat-y;
+      background-size: cover;
+    }
+    @media (max-width: 768px) {
+        body {
+            height:100vh;
+        }
+    }
     li.my {
       width: 150px;
     }
@@ -35,6 +47,13 @@ $( function() {
     input[type=checkbox] {
     zoom: 1.5;
     margin-right: 20px;
+    }
+    ul li{
+      list-style-type: none;
+      background-color: #ffffff;
+    }
+    .inputBox{
+      background-color: #ffffff;
     }
 </style>
 
@@ -76,28 +95,17 @@ $( function() {
 
 
 <p><b><h2>Lista zakupów:</h2></b></p>
+<br>
 <ul id="sortable">
     {% for k, v  in shoppinglist.items %}
         {% if k == "" %}
 
         {% else %}
+        <li>
 
-      <li class="my ui-state-default">
-        <!-- <form> -->
-          <div class="checkboxes d-flex align-items-center justify-content-between">
-            <!-- <label for="{{k}}" class="">
-              <input type="checkbox" id="{{k}}" /> <span> {{k}} {{v}}</span>
-            </label> -->
-            <div for="{{k}}" class="d-flex align-items-center">
-              <input type="checkbox" id="{{k}}"/>
+            <span class="inputBox"><input type="checkbox"></span>{{k}}, ile sztuk?: {{v}}
 
-            </div>
-            <div class="d-flex align-items-center">
-               <p> {{k}} ilość:[{{v}}]</p>
-            </div>
-          </div>
-        <!-- </form> -->
-      </li>
+        </li>
         {% endif %}
     {% endfor %}
 

@@ -2,7 +2,27 @@
 
 {% block body %}
 {% load static %}
-<h1>Todo  </h1>
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
+th {
+  color:#0033cc;
+}
+</style>
+<br>
+<h1><b>Dodaj zadanie</b></h1>
+<br>
+<br>
 <form class="" action="" method="post">
   {% csrf_token %}
 <div class="form-row">

@@ -2,14 +2,53 @@
 
 {% block body %}
 {% load static %}
-<h1>Zadania</h1>
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
+th {
+  color:#0033cc;
+}
+.word-wrap {
+  break-word;min-width: 160px;
+  max-width: 160px;
 
+}
+.endButton {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.endButton:hover {
+    background-color: #555555;
+    color: white;
+}
+</style>
+<br>
+<h1><b>Lista zadań</b></h1>
+<br>
 <div class="row">
 
  <div class="col-sm-12">
+   <div class="table-responsive">
+  <table class="table table-condensed table-bordered">
+    <tr><th><b>Treść zadania</b></th><th>Kto?</th><th>Data ukończenia zadania</th><th>Zakończ zadanie</th></tr>
     {% for task in list_of_tasks reversed%}
-      {{task.id}}, {{task.task_text}}, {{task.whos_task}}, {{task.end_date}} <a href="{% url 'todo-delete-view' task.id %}">delete</a><br>
+      <tr><td class="word-wrap">{{task.task_text}}</td><td>{{task.whos_task}}</td><td>{{task.end_date}}</td><td><a href="{% url 'todo-delete-view' task.id %}"><button class="endButton">Zakończ</button></a></td></tr>
     {% endfor %}
+  </table>
+</div>
+
  </div>
 
 </div>

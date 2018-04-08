@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{% load static %}
 <br>
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
 
+</style>
 
 <div class="page-header">
-    <h2>Koszty stałe</h2>
+    <h2><b>Koszty stałe</b></h2>
 
   </div>
 

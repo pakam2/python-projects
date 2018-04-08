@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{% load static %}
+<style>
+body {
+  background-image: url("{% static 'bg.jpg' %}");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+    body {
+        height:100vh;
+    }
+}
+
+</style>
 <br>
 
 <style type="text/css">
@@ -23,7 +39,7 @@
 
 </style>
 <div class="page-header">
-    <h2>Statystyki na {{monthName}}</h2>
+    <h2><b>Statystyki na {{monthName}}</b></h2>
   </div>
 <br>
  <div class="row">
