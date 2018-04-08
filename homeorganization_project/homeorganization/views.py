@@ -42,7 +42,7 @@ class LoginView(View):
                 login(request, user)
                 return redirect('main/')
             else:
-                return HttpResponse("Nie ma takiego użytkownika")
+                return render(request, "no_user.html")
 
 class MainSite(LoginRequiredMixin, View):
 
