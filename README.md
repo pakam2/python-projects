@@ -9,4 +9,4 @@ My python projects
    Application build in django (fully responsive - bootstrap). For dynamic generated graphs I used JS (chartjs). 
 
 2. Beehive project
-   #project
+   - project for managing beehives (in development)
