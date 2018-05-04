@@ -7,4 +7,4 @@ from django.http import HttpResponse
 class MainView(View):
 
     def get(self, request):
-        return HttpResponse("Main view")
+        return render(request, 'main.html')
