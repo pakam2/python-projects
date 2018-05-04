@@ -7,3 +7,6 @@ My python projects
    - Shopping list function
 
    Application build in django (fully responsive - bootstrap). For dynamic generated graphs I used JS (chartjs). 
+
+2. Beehive project
+   #project
