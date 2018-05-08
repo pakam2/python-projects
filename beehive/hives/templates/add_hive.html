@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Dodaj ul {% endblock %}
+
+{% block body %}
+<h1>Dodaj Ul</h1>
+
+<form action="" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Dodaj">
+</form>
+
+{% endblock %}
