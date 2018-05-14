@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}Ul nr {{ ul_id }}{% endblock %}
 {% block body %}
+<h1>Ul nr {{ul_id}}</h1>
+<p>Czas dodania: {{ul_info.date}}</p>
+<table>
+<tr> <th>Numer ramki</th> <th>Wartość</th> </tr>
+<tr>
+  <td>1</td>
+  <td>{{ ul_info.firstFrame }}</td>
+</tr>
 
-{{ul_info.date}}
+<tr>
+  <td>2</td>
+  <td>{{ ul_info.secondFrame }}</td>
+</tr>
+
+<tr>
+  <td>3</td>
+  <td>{{ ul_info.thirdFrame }}</td>
+</tr>
+</table>
+<p>Dodatkow informacje: {{ul_info.comments}}</p>
+
 {% endblock %}

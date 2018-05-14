@@ -37,6 +37,12 @@ class HiveListView(View):
 class DetailedView(View):
 
     def get(self, request, num):
-        hiveInformation = HiveModel.objects.get(pk=num)
+        print(num)
+        hiveInformation = HiveModel.objects.all().filter(numberOfHive=num)
         return render(request, 'detailed.html', {'ul_id': num,
                                                  'ul_info': hiveInformation,})
+
+class AddData(View):
+
+    def get(self, request):
+        return render(request, 'add_data.html')
