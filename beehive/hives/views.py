@@ -28,9 +28,15 @@ class AddHiveView(View):
             return HttpResponse("Dane są nie poprawne")
 
 
-
 class HiveListView(View):
 
     def get(self, request):
         ctx = HiveModel.objects.all()
         return render(request, 'hive_list.html', {'ctx': ctx})
+
+class DetailedView(View):
+
+    def get(self, request, num):
+        hiveInformation = HiveModel.objects.get(pk=num)
+        return render(request, 'detailed.html', {'ul_id': num,
+                                                 'ul_info': hiveInformation,})

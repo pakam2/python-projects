@@ -5,7 +5,7 @@ from datetime import datetime
 # Create your models here.
 
 class HiveModel(models.Model):
-    numberOfHive = models.IntegerField(null=False)
+    numberOfHive = models.IntegerField(null=False, unique=True)
     firstFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     secondFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     thirdFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
