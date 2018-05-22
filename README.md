@@ -10,5 +10,13 @@ My python projects
 
    Application build in django (fully responsive - bootstrap). For dynamic generated graphs I used JS (chartjs). 
 
-2. Beehive project
-   - project for managing beehives (in development)
+2. Beehive project (managing beehives, in development)
+   To add:
+     - responsiveness and nice look
+     - adding data to a specific hive
+     - showing data for a specified period (time)
+   
+   Done for the time beeing:
+      - main view of app
+      - adding new hives
+      - details of a hive
