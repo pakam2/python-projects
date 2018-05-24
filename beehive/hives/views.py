@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
-from hives.forms import AddHiveForm
+from hives.forms import AddHiveForm, HiveDataForm
 from hives.models import HiveModel
 
 
@@ -45,4 +45,7 @@ class DetailedView(View):
 class AddData(View):
 
     def get(self, request):
-        return render(request, 'add_data.html')
+        form = HiveDataForm()
+        hives_id = HiveModel.objects.all()
+        return render(request, 'add_data.html', {'form': form,
+                                                 'hives': hives_id,})
