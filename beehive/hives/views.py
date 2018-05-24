@@ -34,18 +34,23 @@ class HiveListView(View):
         ctx = HiveModel.objects.all()
         return render(request, 'hive_list.html', {'ctx': ctx})
 
+
 class DetailedView(View):
 
     def get(self, request, num):
-        print(num)
+        #print(num)
         hiveInformation = HiveModel.objects.all().filter(numberOfHive=num)
         return render(request, 'detailed.html', {'ul_id': num,
                                                  'ul_info': hiveInformation,})
 
-class AddData(View):
+class AddHivesData(View):
 
     def get(self, request):
-        form = HiveDataForm()
-        hives_id = HiveModel.objects.all()
-        return render(request, 'add_data.html', {'form': form,
-                                                 'hives': hives_id,})
+        ctx = HiveModel.objects.all()
+        return render(request, 'add_data_to_hives.html', {'ctx': ctx})
+
+
+class AddData(View):
+
+    def get(self, request, hive_id):
+        pass
