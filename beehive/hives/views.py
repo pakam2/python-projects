@@ -52,5 +52,8 @@ class AddHivesData(View):
 
 class AddData(View):
 
+    def post(self, request, hive_id):
+        pass
+
     def get(self, request, hive_id):
         pass
