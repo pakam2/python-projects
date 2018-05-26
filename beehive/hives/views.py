@@ -14,6 +14,7 @@ class MainView(View):
 
 
 class AddHiveView(View):
+    #View to add a new hive
 
     def get(self, request):
         form = AddHiveForm()
@@ -29,31 +30,36 @@ class AddHiveView(View):
 
 
 class HiveListView(View):
-
+    #List of all hives
     def get(self, request):
         ctx = HiveModel.objects.all()
         return render(request, 'hive_list.html', {'ctx': ctx})
 
 
 class DetailedView(View):
-
+    #Detailed view of a specific hive
     def get(self, request, num):
         #print(num)
         hiveInformation = HiveModel.objects.all().filter(numberOfHive=num)
         return render(request, 'detailed.html', {'ul_id': num,
                                                  'ul_info': hiveInformation,})
 
-class AddHivesData(View):
+class DisplayHives(View):
 
+    #Displays list of all hives to which we can add data
     def get(self, request):
         ctx = HiveModel.objects.all()
-        return render(request, 'add_data_to_hives.html', {'ctx': ctx})
+        return render(request, 'display_hives.html', {'ctx': ctx})
 
 
 class AddData(View):
 
-    def post(self, request, hive_id):
-        pass
+    #Addiing data to a specific hive
+    def get(self, request, num):
+        form = HiveDataForm()
+        return render(request, 'add_data.html', {'form': form, 'hive_id': num})
 
-    def get(self, request, hive_id):
-        pass
+    def post(self, request, num):
+        form = request.POST
+        print(form['first_frame'])
+        return HttpResponse('ddd')
