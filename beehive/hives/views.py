@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
 from django.views import View
 from django.http import HttpResponse
 from hives.forms import AddHiveForm, HiveDataForm
@@ -24,20 +25,24 @@ class AddHiveView(View):
         form = AddHiveForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Dodano nowy ul")
+            return redirect('/')
         else:
             return HttpResponse("Dane są nie poprawne")
 
 
 class HiveListView(View):
+
     #List of all hives
+
     def get(self, request):
         ctx = HiveModel.objects.all()
         return render(request, 'hive_list.html', {'ctx': ctx})
 
 
 class DetailedView(View):
+
     #Detailed view of a specific hive
+
     def get(self, request, num):
         #print(num)
         hiveInformation = HiveModel.objects.all().filter(numberOfHive=num)
@@ -48,6 +53,10 @@ class DisplayHives(View):
 
     #Displays list of all hives to which we can add data
     def get(self, request):
+        ctx = HiveModel.objects.all()
+        return render(request, 'display_hives.html', {'ctx': ctx})
+
+    def post(self, request):
         ctx = HiveModel.objects.all()
         return render(request, 'display_hives.html', {'ctx': ctx})
 
@@ -67,9 +76,11 @@ class AddData(View):
             form = form.save(commit=False)
             form.hive_id = int(num)
             form.save()
-            return HttpResponse("Dodano dane")
+            return render(request,'display_hives.html', {'ctx': HiveModel.objects.all(), 'success': 'asaa'} )
         else:
             return HttpResponse("Nie dodno danych")
-        #first_frame = form['first_frame']
-        #second_frame = form['second_frame']
-        #third_frame = form['third_frame']
+
+class ShowHistoricData(View):
+
+    def get(self, request):
+        pass

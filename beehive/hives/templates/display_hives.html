@@ -2,7 +2,8 @@
 {% block title %}Dodaj pomiary{% endblock %}
 {% block body %}
 <h1>Dodaj pomiary</h1>
-
+{{success}}
+<br>
 {% for hive in ctx %}
 <a href="/addHivesData/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a><br>
 
