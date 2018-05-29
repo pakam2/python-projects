@@ -12,7 +12,7 @@ class HiveDataModel(models.Model):
     firstFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     secondFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     thirdFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
-    motherBee = models.BooleanField(default=False, null=False)
+    motherBee = models.BooleanField(default=False)
     addInformationDate = models.DateTimeField(auto_now_add=True)
 
     hive = models.ForeignKey(HiveModel, on_delete=models.CASCADE)

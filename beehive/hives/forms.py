@@ -7,9 +7,16 @@ class AddHiveForm(ModelForm):
         model = HiveModel
         fields = '__all__'
 
-class HiveDataForm(forms.Form):
-    
-    first_frame = forms.IntegerField(label='Pierwsza ramka', widget=forms.NumberInput(attrs={'step': 0.01, 'min':0.01, 'max':1}))
-    second_frame = forms.IntegerField(label='Druga ramka', widget=forms.NumberInput(attrs={'step': 0.01, 'min':0.01, 'max':1}))
-    third_frame = forms.IntegerField(label='Trzecia ramka', widget=forms.NumberInput(attrs={'step': 0.01, 'min':0.01, 'max': 1}))
-    motherBee = forms.BooleanField(label='Matka pszczoła')
+class HiveDataForm(ModelForm):
+
+    class Meta:
+        model = HiveDataModel
+        exclude = ['hive']
+
+
+    #Making the 'max' value of the fileds equal to 1
+    def __init__(self, *args, **kwargs):
+        super(HiveDataForm, self).__init__(*args, **kwargs)
+        self.fields['firstFrame'].widget = forms.NumberInput(attrs={'step': 0.01, 'min': 0.01, 'max': 1})
+        self.fields['secondFrame'].widget = forms.NumberInput(attrs={'step': 0.01, 'min': 0.01, 'max': 1})
+        self.fields['thirdFrame'].widget = forms.NumberInput(attrs={'step': 0.01, 'min': 0.01, 'max': 1})

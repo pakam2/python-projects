@@ -60,6 +60,16 @@ class AddData(View):
         return render(request, 'add_data.html', {'form': form, 'hive_id': num})
 
     def post(self, request, num):
-        form = request.POST
-        print(form['first_frame'])
-        return HttpResponse('ddd')
+        form = HiveDataForm(request.POST)
+        if form.is_valid():
+            print(form)
+            #Adding a filed to a HiveDataModel that was excluded from in forms.py
+            form = form.save(commit=False)
+            form.hive_id = int(num)
+            form.save()
+            return HttpResponse("Dodano dane")
+        else:
+            return HttpResponse("Nie dodno danych")
+        #first_frame = form['first_frame']
+        #second_frame = form['second_frame']
+        #third_frame = form['third_frame']
