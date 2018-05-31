@@ -12,11 +12,13 @@ My python projects
 
 2. Beehive project (managing beehives, in development)
    To add:
-     - responsiveness and nice look
-     - adding data to a specific hive
-     - showing data for a specified period (time)
+     - responsiveness and nice look (collaboration with denciu)
+     - login form
+     
    
    Done for the time beeing:
       - main view of app
       - adding new hives
       - details of a hive
+      - showing data for a specified period (time)
+      - adding data to a specific hive
