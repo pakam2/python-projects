@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Dodaj pomiary{% endblock %}
+{% block body %}
+<h1>Wyświetl dane dla danego ula</h1>
+
+<br>
+{% for hive in ctx %}
+  <a href="/historicData/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a><br>
+{% endfor %}
+{% endblock %}

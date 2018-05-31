@@ -3,8 +3,8 @@ from django.core.urlresolvers import reverse
 from django.views import View
 from django.http import HttpResponse
 from hives.forms import AddHiveForm, HiveDataForm
-from hives.models import HiveModel
-
+from hives.models import HiveModel, HiveDataModel
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -27,7 +27,7 @@ class AddHiveView(View):
             form.save()
             return redirect('/')
         else:
-            return HttpResponse("Dane są nie poprawne")
+            return HttpResponse("Ul o tym numerze już istnieje")
 
 
 class HiveListView(View):
@@ -39,17 +39,17 @@ class HiveListView(View):
         return render(request, 'hive_list.html', {'ctx': ctx})
 
 
-class DetailedView(View):
+class HiveListDetailedView(View):
 
     #Detailed view of a specific hive
 
     def get(self, request, num):
-        #print(num)
+
         hiveInformation = HiveModel.objects.all().filter(numberOfHive=num)
         return render(request, 'detailed.html', {'ul_id': num,
                                                  'ul_info': hiveInformation,})
 
-class DisplayHives(View):
+class AddDataDisplayHives(View):
 
     #Displays list of all hives to which we can add data
     def get(self, request):
@@ -72,7 +72,7 @@ class AddData(View):
         form = HiveDataForm(request.POST)
         if form.is_valid():
             print(form)
-            #Adding a filed to a HiveDataModel that was excluded from in forms.py
+            #Adding a field to a HiveDataModel that was excluded from in forms.py
             form = form.save(commit=False)
             form.hive_id = int(num)
             form.save()
@@ -80,7 +80,18 @@ class AddData(View):
         else:
             return HttpResponse("Nie dodno danych")
 
-class ShowHistoricData(View):
+class ShowListOfHives(View):
 
+    #displays a list of hives
+    #In this view you can choose a hive and see the statistics
     def get(self, request):
-        pass
+        ctx = HiveModel.objects.all()
+        return render(request, 'historic_data.html', {'ctx':ctx})
+
+
+class ShowData(View):
+
+    def get(self, request, num):
+        #Query gets all data from a chosen hive
+        dataOfHive = HiveDataModel.objects.all().filter(hive_id=num)
+        return render(request, 'show_data.html', {'hive_id': num, 'dataOfHive': dataOfHive})

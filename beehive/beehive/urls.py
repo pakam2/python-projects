@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from hives.views import MainView, AddHiveView, HiveListView, DetailedView, DisplayHives, AddData
+from hives.views import MainView, AddHiveView, HiveListView, HiveListDetailedView, AddDataDisplayHives, AddData, ShowListOfHives, ShowData
 
 
 urlpatterns = [
@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^$', MainView.as_view(), name="main"),
     url(r'^addHive/$', AddHiveView.as_view(), name="add-hive"),
     url(r'^hiveList/$', HiveListView.as_view(), name="hive-list"),
-    url(r'^displayHives/$', DisplayHives.as_view(), name="display-hives"),
+    url(r'^displayHives/$', AddDataDisplayHives.as_view(), name="display-hives"),
+    url(r'^historicData/$', ShowListOfHives.as_view(), name="show-hive-list"),
+    url(r'^historicData/(?P<num>(\d)+)/$', ShowData.as_view(), name="show-data"),
     url(r'^addHivesData/(?P<num>(\d)+)/$', AddData.as_view(), name="hive-data-add"),
-    url(r'^detailed/(?P<num>(\d)+)/$', DetailedView.as_view(), name="detailed"),
+    url(r'^detailed/(?P<num>(\d)+)/$', HiveListDetailedView.as_view(), name="detailed"),
 ]

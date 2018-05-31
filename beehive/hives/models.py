@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User, AbstractUser
+
 
 # Create your models here.
 
@@ -13,23 +15,22 @@ class HiveDataModel(models.Model):
     secondFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     thirdFrame = models.DecimalField(max_digits=3, decimal_places=2, null=True)
     motherBee = models.BooleanField(default=False)
-    addInformationDate = models.DateTimeField(auto_now_add=True)
+    addInformationDate = models.DateField(auto_now_add=True)
 
     hive = models.ForeignKey(HiveModel, on_delete=models.CASCADE)
 
+class HiveUser(AbstractUser):
 
-#test
+    email = models.EmailField(unique=True)
 
-PIZZA_SIZES = (
-    (1, "small"),
-    (2, "medium"),
-    (3, "big"),
-)
+    USERNAME_FIELDUSERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username',]
 
-class Topping(models.Model):
-    name = models.CharField(max_length=32)
-    price = models.FloatField()
-
-class Pizza(models.Model):
-    size = models.IntegerField(choices=PIZZA_SIZES)
-    toppings = models.ManyToManyField(Topping)
+    @property
+    def nick(self):
+        return self.email[:self.email.index('@')].title()
+   
+    class Meta:
+        verbose_name = "Użytkownik"
+        verbose_name_plural = "Użytkownicy"
+    

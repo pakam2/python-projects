@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Dodaj pomiary{% endblock %}
+{% block body %}
+<h1>Wyświetl dane dla ula {{hive_id}}</h1>
+
+<br>
+
+
+<table>
+	<tr>
+		<th>Data pomiaru</th>
+		<th>Wartość z pierwszej ramki</th>
+		<th>Wartość z drugiej ramki</th>
+		<th>Wartość z trzeciej ramki</th>
+	</tr>
+{% for x in dataOfHive %} 
+
+<tr>
+	<td>{{x.addInformationDate}}</td>	
+	<td>{{x.firstFrame}}</td>
+	<td>{{x.secondFrame}}</td>
+	<td>{{x.thirdFrame}}</td>
+
+
+</tr>
+{% endfor %}
+
+</table>
+{% endblock %}
