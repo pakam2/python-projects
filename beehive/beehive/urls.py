@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from hives.views import MainView, AddHiveView, HiveListView, HiveListDetailedView, AddDataDisplayHives, AddData, ShowListOfHives, ShowData, LoginView
-
+from hives.views import MainView, AddHiveView, HiveListView, HiveListDetailedView, AddDataDisplayHives, AddData, ShowListOfHives, ShowData, LoginView, SignUp, LogOutView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^logout/', LogOutView.as_view(), name="logout"),
+    url(r'^signup/', SignUp.as_view(), name="signup"),
     url(r'^$', LoginView.as_view(), name="login"),
     url(r'^main/$', MainView.as_view(), name="main"),
     url(r'^addHive/$', AddHiveView.as_view(), name="add-hive"),

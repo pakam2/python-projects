@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Zarejestruj się{% endblock %}
+{% block body %}
+
+<form action="signup/" method="POST">
+		{{form}}
+		{% csrf_token %}
+		<input type="submit" value="Rejestruj">
+</form>
+
+{% endblock %}

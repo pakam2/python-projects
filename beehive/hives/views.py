@@ -6,9 +6,27 @@ from hives.forms import AddHiveForm, HiveDataForm, SignInForm
 from hives.models import HiveModel, HiveDataModel
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+class SignUp(View):
+    
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            return redirect('/')
+        else:
+            return HttpResponse("Rejestracja nie powiodła się")
+
 class LoginView(View):
     
     def get(self, request):
@@ -16,14 +34,20 @@ class LoginView(View):
         return render(request, 'login.html', {'ctx': ctx})
 
     def post(self, request):
-        form_data = SignInForm(request.POST)
-        user = authenticate(request, username=form_data['login'], password=form_data['password'])
+        username = request.POST['login']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('/main')
         else:
             return HttpResponse("Nie ma takiego użytkownika")
 
+class LogOutView(View):
+    
+    def get(self, request):
+        logout(request)
+        return HttpResponse("Wylogowałeś się")
 
 
 class MainView(LoginRequiredMixin, View):
