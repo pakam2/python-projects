@@ -13,10 +13,11 @@ My python projects
 2. Beehive project (managing beehives, in development)
    To add:
      - responsiveness and nice look (collaboration with denciu)
-     - login form
+     - make a better registration form
      
    
    Done for the time beeing:
+      - registration and login form
       - main view of app
       - adding new hives
       - details of a hive
