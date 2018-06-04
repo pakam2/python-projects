@@ -26,9 +26,9 @@ class HiveDataForm(ModelForm):
         self.fields['thirdFrame'].widget = forms.NumberInput(attrs={'step': 0.01, 'min': 0.01, 'max': 1})
 
 
-class SignInForm(ModelForm):
+class SignInForm(forms.Form):
 
-    passwordOne = forms.CharField(widget=forms.PasswordInput())
-    passwordTwo = forms.CharField(widget=forms.PasswordInput())
+    login = forms.CharField(label="Login")
+    password = forms.CharField(label="Hasło" ,widget=forms.PasswordInput())
 
 

@@ -19,18 +19,6 @@ class HiveDataModel(models.Model):
 
     hive = models.ForeignKey(HiveModel, on_delete=models.CASCADE)
 
-class HiveUser(AbstractUser):
 
-    email = models.EmailField(unique=True)
 
-    USERNAME_FIELDUSERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
-
-    @property
-    def nick(self):
-        return self.email[:self.email.index('@')].title()
-   
-    class Meta:
-        verbose_name = "Użytkownik"
-        verbose_name_plural = "Użytkownicy"
     

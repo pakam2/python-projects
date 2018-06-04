@@ -2,19 +2,37 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views import View
 from django.http import HttpResponse
-from hives.forms import AddHiveForm, HiveDataForm
+from hives.forms import AddHiveForm, HiveDataForm, SignInForm
 from hives.models import HiveModel, HiveDataModel
 from django.db.models import Sum
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
+class LoginView(View):
+    
+    def get(self, request):
+        ctx = SignInForm()
+        return render(request, 'login.html', {'ctx': ctx})
 
-class MainView(View):
+    def post(self, request):
+        form_data = SignInForm(request.POST)
+        user = authenticate(request, username=form_data['login'], password=form_data['password'])
+        if user is not None:
+            login(request, user)
+            return redirect('/main')
+        else:
+            return HttpResponse("Nie ma takiego użytkownika")
+
+
+
+class MainView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'main.html')
 
 
-class AddHiveView(View):
+class AddHiveView(LoginRequiredMixin, View):
     #View to add a new hive
 
     def get(self, request):
@@ -30,16 +48,17 @@ class AddHiveView(View):
             return HttpResponse("Ul o tym numerze już istnieje")
 
 
-class HiveListView(View):
+class HiveListView( LoginRequiredMixin, View):
 
     #List of all hives
 
     def get(self, request):
         ctx = HiveModel.objects.all()
+
         return render(request, 'hive_list.html', {'ctx': ctx})
 
 
-class HiveListDetailedView(View):
+class HiveListDetailedView(LoginRequiredMixin, View):
 
     #Detailed view of a specific hive
 
@@ -49,7 +68,7 @@ class HiveListDetailedView(View):
         return render(request, 'detailed.html', {'ul_id': num,
                                                  'ul_info': hiveInformation,})
 
-class AddDataDisplayHives(View):
+class AddDataDisplayHives(LoginRequiredMixin, View):
 
     #Displays list of all hives to which we can add data
     def get(self, request):
@@ -61,7 +80,7 @@ class AddDataDisplayHives(View):
         return render(request, 'display_hives.html', {'ctx': ctx})
 
 
-class AddData(View):
+class AddData(LoginRequiredMixin, View):
 
     #Addiing data to a specific hive
     def get(self, request, num):
@@ -80,7 +99,7 @@ class AddData(View):
         else:
             return HttpResponse("Nie dodno danych")
 
-class ShowListOfHives(View):
+class ShowListOfHives(LoginRequiredMixin, View):
 
     #displays a list of hives
     #In this view you can choose a hive and see the statistics
@@ -89,7 +108,7 @@ class ShowListOfHives(View):
         return render(request, 'historic_data.html', {'ctx':ctx})
 
 
-class ShowData(View):
+class ShowData(LoginRequiredMixin, View):
 
     def get(self, request, num):
         #Query gets all data from a chosen hive
