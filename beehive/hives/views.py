@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.views import View
 from django.http import HttpResponse
-from hives.forms import AddHiveForm, HiveDataForm, SignInForm
+from hives.forms import AddHiveForm, HiveDataForm, SignInForm, MySignUpForm
 from hives.models import HiveModel, HiveDataModel
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 class SignUp(View):
     
     def get(self, request):
-        form = UserCreationForm()
+        #form = UserCreationForm()
+        form = MySignUpForm()
         return render(request, 'signup.html', {'form': form})
 
     def post(self, request):

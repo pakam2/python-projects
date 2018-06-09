@@ -1,6 +1,10 @@
 from django import forms
 from django.forms import ModelForm
 from hives.models import HiveModel, HiveDataModel
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 class AddHiveForm(ModelForm):
     class Meta:
@@ -31,4 +35,11 @@ class SignInForm(forms.Form):
     login = forms.CharField(label="Login")
     password = forms.CharField(label="Hasło" ,widget=forms.PasswordInput())
 
-
+class MySignUpForm(UserCreationForm):
+        first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+        last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+        email = forms.EmailField(max_length=254)
+        password1 = forms.CharField(widget=forms.PasswordInput(), help_text='')
+        class Meta:
+            model = User
+            fields = ('username', 'last_name', 'password1', 'password2', )
