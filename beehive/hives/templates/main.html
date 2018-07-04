@@ -1,15 +1,48 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% block title %}Strona główna {% endblock %} 
+{% block body %} 
+{% load static %}
 
-{% block title %}Strona główna {% endblock %}
-
-{% block body %}
-<h1>Strona główna</h1>
-<br>
-<a href="/addHive">Dodaj nowy ul</a><br>
-<a href="/hiveList">Lista uli</a><br>
-<a href="/displayHives">Dodaj pomiary</a><br>
-<a href="/historicData">Wyświetl pomiary</a><br>
-<a href="/logout">Wyloguj się</a><br>
+<div class="app-body-wrapper">
+    <h1>Strona Główna</h1>
+    <div id="main" class="app-body">
+        <ul>
+            <li>
+                <a href="/addHive">
+                    <img src="{% static 'hives/img/logo.svg' %}" alt="">
+                    <p>Dodaj nowy ul</p>
+                    <p>Dodatkowe info</p>
+                </a>
+            </li>
+            <li>
+                <a href="/hiveList">
+                    <img src="{% static 'hives/img/logo.svg' %}" alt="">
+                    <p>Lista uli</p>
+                    <p>Dodatkowe info</p>
+                </a>
+            </li>
+            <li>
+                <a href="/displayHives">
+                    <img src="{% static 'hives/img/logo.svg' %}" alt="">
+                    <p>Dodaj pomiary</p>
+                    <p>Dodatkowe info</p>
+                </a>
+            </li>
+            <li>
+                <a href="/historicData">
+                    <img src="{% static 'hives/img/logo.svg' %}" alt="">
+                    <p>Wyświetl pomiary</p>
+                    <p>Dodatkowe info</p>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <p>Wyloguj się</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
 
 {% endblock %}

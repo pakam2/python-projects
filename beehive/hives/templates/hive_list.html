@@ -3,11 +3,15 @@
 {% block title %} Dodaj ul {% endblock %}
 
 {% block body %}
-<h1>Lista uli</h1>
-
-{% for hive in ctx %}
-<a href="/detailed/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a><br>
-
-{% endfor %}
+<div class="app-body-wrapper">
+    <h1>Lista uli</h1>
+    <div class="app-body">
+        {% for hive in ctx %}
+        <a href="/detailed/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a><br>
+        
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
+

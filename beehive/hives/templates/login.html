@@ -1,13 +1,15 @@
 {% extends 'base.html'  %} 
 {% block title %}Zaloguj się{% endblock %}
 {% block body %}
-<p>Formularz do logowania</p>
-
-<form action="/" method="POST">
-	{% csrf_token  %}
-	{{ ctx }}
-	<input type="submit" value="Zaloguj">
-</form>
-
-<a href="/signup/">Zarejestruj się</a>
+<div class="app-body-wrapper">
+	<h1>Log in</h1>
+	<div class="app-body">
+		<form id="login" action="/" method="POST">
+			{% csrf_token  %}
+			{{ ctx }}
+			<input type="submit" value="Zaloguj">
+		</form>
+		<a href="/signup/">Zarejestruj się</a>
+	</div>
+</div>
 {% endblock %}
