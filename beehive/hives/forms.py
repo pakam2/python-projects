@@ -32,8 +32,8 @@ class HiveDataForm(ModelForm):
 
 class SignInForm(forms.Form):
 
-    login = forms.CharField(label="Login")
-    password = forms.CharField(label="Hasło" ,widget=forms.PasswordInput())
+    login = forms.CharField(label="Login" ,widget=forms.TextInput(attrs={'class' : 'inputField', 'placeholder' : 'Twój login', 'autocomplete' : 'nope'}))
+    password = forms.CharField(label="Hasło" ,widget=forms.PasswordInput(attrs={'class': 'inputField', 'placeholder' : 'Twoje hasło', 'autocomplete' : 'nope'}))
 
 class MySignUpForm(UserCreationForm):
         first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
