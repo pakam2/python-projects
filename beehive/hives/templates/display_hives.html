@@ -5,11 +5,13 @@
 <div class="app-body-wrapper">
     <h1>Dodaj pomiary</h1>
     <div class="app-body">
-        {{success}}
-        {% for hive in ctx %}
-        <a href="/addHivesData/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a>
-        <br>
-        {% endfor %}
+        <div class="overflow">
+            {{success}}
+            {% for hive in ctx %}
+            <a href="/addHivesData/{{hive.numberOfHive}}/">Ul nr {{hive.numberOfHive}}</a>
+            <br>
+            {% endfor %}
+        </div>
     </div>
 </div>
 

@@ -6,7 +6,7 @@
 	<div class="app-body">
 		<form id="login" action="/" method="POST">
 			{% csrf_token  %}
-			{% for form in ctx %}
+			{% for form in ctx.visible_fields %}
 				<span>
 					{{ form }}
 					{{ form.label_tag }}

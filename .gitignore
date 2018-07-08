@@ -104,3 +104,5 @@ ENV/
 #things I dont want to send to git
 dont_send_to_git.py
 db.sqlite3
+node_modules/
+gulpfile.js

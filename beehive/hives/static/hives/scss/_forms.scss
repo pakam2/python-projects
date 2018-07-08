@@ -1,0 +1,112 @@
+
+/* Login */
+#app form {
+    span {
+        position: relative;
+        display: block;
+        margin: 30px auto;
+        width: 215px;
+    }
+
+    .inputField {
+        display: inline-block;
+        width: 215px;
+        padding: 10px 15px;
+        font-family: "Open Sans", sans;
+        font-weight: 400;
+        color: $color-complement-2;
+        background: $color-secondary-1-1;
+        border: 0; 
+        border-radius: 3px;
+        outline: 0; 
+        text-indent: 70px; 
+        transition: all .3s ease-in-out;
+
+        &::-webkit-input-placeholder {
+            color: $color-secondary-1-1; /* taki sam jak background inputu */
+            text-indent: 0;
+            font-weight: 300;
+        }
+
+        &:focus, 
+        &:active {
+            color: $color-complement-1;
+            text-indent: 0;
+            background: #FFE575;
+            
+            + label {
+                color: #fff;
+                text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+                background: $color-complement-1;
+                transform: translateY(-40px);
+                padding: 1px 15px;
+                top: 16px;
+                bottom: 4px;
+                
+                &:after {
+                    border-top: 4px solid $color-complement-1;
+                }
+            }
+            
+            &::-webkit-input-placeholder {
+                color: #aaa;
+            }
+        }
+
+        + label {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 12px 15px;
+            color: #032429;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 rgba(19,74,70,0);
+            transition: all .3s ease-in-out;
+            border-radius: 3px;
+            background: rgba(122,184,147,0);
+
+            &:after {
+                position: absolute;
+                content: "";
+                width: 0;
+                height: 0;
+                top: 100%;
+                left: 50%;
+                margin-left: -3px;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+                border-top: 3px solid rgba(122,184,147,0);
+                transition: all .3s ease-in-out;
+            }
+        }
+    }
+    button {
+        width: 105px;
+        padding: 8px 20px;
+        color: #032429;
+        background: $color-secondary-2-0;
+        color: #fff;
+        font-family: "Open Sans", sans;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 3px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        &:hover,
+        &:active, 
+        &:focus {
+            
+            background: $color-complement-1;
+        }
+        &:only-of-type {
+            width: 215px;
+        }
+    }
+}
+/* End of Login */
