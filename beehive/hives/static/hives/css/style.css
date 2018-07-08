@@ -1,4 +1,5 @@
 /* General styles */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300,800);
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +14,8 @@
 
 html, body {
   height: 100%;
-  font-family: 'Lato', sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
   font-size: 17px; }
 
 /* End of General styles */
@@ -63,14 +65,19 @@ html, body {
     font-size: 1.2rem;
     text-transform: uppercase;
     padding: 10px; }
-  #app .app-body-wrapper .app-body {
-    -webkit-box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
-    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
-    border-radius: 25px;
-    background-color: white;
-    height: 100%;
-    padding: 10px; }
+  #app .app-body-wrapper {
+    height: 100%; }
+    #app .app-body-wrapper .app-body {
+      -webkit-box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
+      box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.15);
+      border-radius: 25px;
+      background-color: white;
+      height: 100%;
+      padding: 10px; }
+      #app .app-body-wrapper .app-body .overflow {
+        overflow: auto;
+        height: 100%; }
 
 /* End of App */
 /* Main */
@@ -82,7 +89,7 @@ html, body {
   display: flex;
   flex-flow: row wrap;
   text-align: left;
-  overflow: auto; }
+  /* overflow: auto; */ }
   #main ul li {
     box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.15);
     background-color: #FFFC75;
@@ -115,13 +122,13 @@ html, body {
 
 /* End of Main */
 /* Login */
-#app #login span {
+#app form span {
   position: relative;
   display: block;
-  margin: 40px auto;
+  margin: 30px auto;
   width: 215px; }
 
-#app #login .inputField {
+#app form .inputField {
   display: inline-block;
   width: 215px;
   padding: 10px 15px;
@@ -132,33 +139,36 @@ html, body {
   border: 0;
   border-radius: 3px;
   outline: 0;
-  text-indent: 60px;
+  text-indent: 70px;
   transition: all .3s ease-in-out; }
-  #app #login .inputField::-webkit-input-placeholder {
+  #app form .inputField::-webkit-input-placeholder {
     color: #FFFC75;
     /* taki sam jak background inputu */
     text-indent: 0;
     font-weight: 300; }
-  #app #login .inputField:focus, #app #login .inputField:active {
+  #app form .inputField:focus, #app form .inputField:active {
     color: #7A67C5;
     text-indent: 0;
     background: #FFE575; }
-    #app #login .inputField:focus + label, #app #login .inputField:active + label {
+    #app form .inputField:focus + label, #app form .inputField:active + label {
       color: #fff;
       text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
       background: #7A67C5;
-      transform: translateY(-40px); }
-      #app #login .inputField:focus + label:after, #app #login .inputField:active + label:after {
+      transform: translateY(-40px);
+      padding: 1px 15px;
+      top: 16px;
+      bottom: 4px; }
+      #app form .inputField:focus + label:after, #app form .inputField:active + label:after {
         border-top: 4px solid #7A67C5; }
-    #app #login .inputField:focus::-webkit-input-placeholder, #app #login .inputField:active::-webkit-input-placeholder {
+    #app form .inputField:focus::-webkit-input-placeholder, #app form .inputField:active::-webkit-input-placeholder {
       color: #aaa; }
-  #app #login .inputField + label {
+  #app form .inputField + label {
     display: inline-block;
     position: absolute;
-    top: 8px;
+    top: 0;
     left: 0;
-    bottom: 8px;
-    padding: 5px 15px;
+    bottom: 0;
+    padding: 12px 15px;
     color: #032429;
     font-size: 11px;
     font-weight: 700;
@@ -167,7 +177,7 @@ html, body {
     transition: all .3s ease-in-out;
     border-radius: 3px;
     background: rgba(122, 184, 147, 0); }
-    #app #login .inputField + label:after {
+    #app form .inputField + label:after {
       position: absolute;
       content: "";
       width: 0;
@@ -180,11 +190,12 @@ html, body {
       border-top: 3px solid rgba(122, 184, 147, 0);
       transition: all .3s ease-in-out; }
 
-#app #login button {
+#app form button {
   width: 105px;
   padding: 8px 20px;
   color: #032429;
-  background: #FFFC75;
+  background: #6D1DA2;
+  color: #fff;
   font-family: "Open Sans", sans;
   font-size: 11px;
   font-weight: 700;
@@ -193,8 +204,9 @@ html, body {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out; }
-  #app #login button:hover, #app #login button:active, #app #login button:focus {
-    color: #fff;
+  #app form button:hover, #app form button:active, #app form button:focus {
     background: #7A67C5; }
+  #app form button:only-of-type {
+    width: 215px; }
 
 /* End of Login */

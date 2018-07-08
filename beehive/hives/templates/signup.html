@@ -5,12 +5,22 @@
 <div class="app-body-wrapper">
 	<h1>Sign up</h1>
 	<div class="app-body">
-		<form action="signup/" method="POST">
-			{{form}}
-			{% csrf_token %}
-			<input type="submit" value="Rejestruj">
-		</form>
+		<div class="overflow">
+			<form action="signup/" method="POST">
+				{% csrf_token %}
+				{% for field in form %}
+					<span>
+						{{ field }}
+						{{ field.label_tag }}
+						{% if field.help_text %}
+							<small class="small">{{ field.help_text }}</small>
+						{% endif %}
+					</span>
+				{% endfor %}
+				<button type="submit">Sign up</button>
+			</form>
+		</div>
 	</div>
 </div>
-
+<!-- TODO: Add onerrors, otherwise 'Registration failed' page appears without hint. Maybe help_text should be added? -->
 {% endblock %}

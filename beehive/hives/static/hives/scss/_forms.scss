@@ -1,10 +1,10 @@
 
 /* Login */
-#app #login {
+#app form {
     span {
         position: relative;
         display: block;
-        margin: 40px auto;
+        margin: 30px auto;
         width: 215px;
     }
 
@@ -19,7 +19,7 @@
         border: 0; 
         border-radius: 3px;
         outline: 0; 
-        text-indent: 60px; 
+        text-indent: 70px; 
         transition: all .3s ease-in-out;
 
         &::-webkit-input-placeholder {
@@ -39,6 +39,9 @@
                 text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
                 background: $color-complement-1;
                 transform: translateY(-40px);
+                padding: 1px 15px;
+                top: 16px;
+                bottom: 4px;
                 
                 &:after {
                     border-top: 4px solid $color-complement-1;
@@ -53,10 +56,10 @@
         + label {
             display: inline-block;
             position: absolute;
-            top: 8px;
+            top: 0;
             left: 0;
-            bottom: 8px;
-            padding: 5px 15px;
+            bottom: 0;
+            padding: 12px 15px;
             color: #032429;
             font-size: 11px;
             font-weight: 700;
@@ -85,7 +88,8 @@
         width: 105px;
         padding: 8px 20px;
         color: #032429;
-        background: $color-secondary-1-1;
+        background: $color-secondary-2-0;
+        color: #fff;
         font-family: "Open Sans", sans;
         font-size: 11px;
         font-weight: 700;
@@ -97,8 +101,11 @@
         &:hover,
         &:active, 
         &:focus {
-            color: #fff;
+            
             background: $color-complement-1;
+        }
+        &:only-of-type {
+            width: 215px;
         }
     }
 }

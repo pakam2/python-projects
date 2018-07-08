@@ -36,10 +36,13 @@ class SignInForm(forms.Form):
     password = forms.CharField(label="Hasło" ,widget=forms.PasswordInput(attrs={'class': 'inputField', 'placeholder' : 'Twoje hasło', 'autocomplete' : 'nope'}))
 
 class MySignUpForm(UserCreationForm):
-        first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-        last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-        email = forms.EmailField(max_length=254)
-        password1 = forms.CharField(widget=forms.PasswordInput(), help_text='')
+        
+        username = forms.CharField(max_length=150, required=True, label='Username', widget=forms.TextInput(attrs={'class' : 'inputField', 'placeholder' : 'Required'}))
+        first_name = forms.CharField(max_length=30, required=False, label='First Name', widget=forms.TextInput(attrs={'class' : 'inputField', 'placeholder' : 'Optional'}))
+        last_name = forms.CharField(max_length=30, required=False, label="Last Name", widget=forms.TextInput(attrs={'class' : 'inputField', 'placeholder' : 'Optional'}))
+        email = forms.EmailField(max_length=254, required=True, label='Email', widget=forms.EmailInput(attrs={'class' : 'inputField', 'placeholder' : 'Required'}))
+        password1 = forms.CharField(label='Password', required=True, widget=forms.PasswordInput(attrs={'class' : 'inputField', 'placeholder' : 'At least 8 chars, number & special'}), help_text='')
+        password2 = forms.CharField(label='Confirm', required=True, widget=forms.PasswordInput(attrs={'class' : 'inputField', 'placeholder' : 'Confirm your password'}), help_text='')
         class Meta:
             model = User
-            fields = ('username', 'last_name', 'password1', 'password2', )
+            fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
