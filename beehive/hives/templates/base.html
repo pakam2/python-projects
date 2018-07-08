@@ -1,12 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'hives/css/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
   </head>
   <body>
-    {% block body %}
-
-    {% endblock %}
+    <div class="app-container">
+      <div class="app-container-bg-top">
+        <div class="app-logo">
+          <img src="{% static 'hives/img/logo.svg' %}" alt="">
+        </div>
+      </div>
+      <div class="app-container-bg-bot"></div>
+      <div id="app">
+        {% block body %}
+    
+        {% endblock %}
+      </div>
+    </div>
+    <script src="{% static 'hives/js/script.js' %}"></script>
   </body>
 </html>

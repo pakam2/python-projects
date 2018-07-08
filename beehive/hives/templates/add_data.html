@@ -3,12 +3,15 @@
 {% block title %} Dodaj ul {% endblock %}
 
 {% block body %}
-<h1>Pomiary dla ula nr {{ hive_id }}</h1>
-
-<form action="" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" value="Dodaj">
-</form>
+<div class="app-body-wrapper">
+  <h1>Pomiary dla ula nr {{ hive_id }}</h1>
+  <div class="app-body">
+      <form action="" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" value="Dodaj">
+        </form>
+  </div>
+</div>
 
 {% endblock %}
