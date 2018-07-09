@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^historicData/(?P<num>(\d)+)/$', ShowData.as_view(), name="show-data"),
     url(r'^addHivesData/(?P<num>(\d)+)/$', AddData.as_view(), name="hive-data-add"),
     url(r'^detailed/(?P<num>(\d)+)/$', HiveListDetailedView.as_view(), name="detailed"),
+
 ]

@@ -11,9 +11,11 @@ class AddHiveForm(ModelForm):
         model = HiveModel
         fields = '__all__'
 
+    #Making the 'max' value of the field equal to 1
     def __init__(self, *args, **kwargs):
         super(AddHiveForm,self).__init__(*args, **kwargs)
         self.fields['numberOfHive'].widget = forms.NumberInput(attrs={'step':1, 'min':1})
+
 
 class HiveDataForm(ModelForm):
 

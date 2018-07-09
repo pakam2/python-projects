@@ -8,10 +8,11 @@ from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 class SignUp(View):
-    
+
     def get(self, request):
         #form = UserCreationForm()
         form = MySignUpForm()
@@ -29,10 +30,14 @@ class SignUp(View):
             return HttpResponse("Rejestracja nie powiodła się")
 
 class LoginView(View):
-    
+
     def get(self, request):
-        ctx = SignInForm()
-        return render(request, 'login.html', {'ctx': ctx})
+        if request.user.is_authenticated():
+            return redirect('/main')
+        else:
+            ctx = SignInForm()
+            #User.objects.create_user(username="jeden", password="jeden")
+            return render(request, 'login.html', {'ctx': ctx})
 
     def post(self, request):
         username = request.POST['login']
@@ -45,7 +50,7 @@ class LoginView(View):
             return HttpResponse("Nie ma takiego użytkownika")
 
 class LogOutView(View):
-    
+
     def get(self, request):
         logout(request)
         return HttpResponse("Wylogowałeś się")
@@ -68,7 +73,7 @@ class AddHiveView(LoginRequiredMixin, View):
         form = AddHiveForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/main')
         else:
             return HttpResponse("Ul o tym numerze już istnieje")
 

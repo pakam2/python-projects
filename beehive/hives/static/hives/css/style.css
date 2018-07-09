@@ -107,7 +107,7 @@ html, body {
     -moz-box-shadow: 10px 10px 20px 5px rgba(0,0,0,0.15);
     box-shadow: 10px 10px 20px 5px rgba(0,0,0,0.15);
     border-radius: 25px;
-    background-color: white; 
+    background-color: white;
     height: 100%;
     padding: 10px
 }
@@ -180,10 +180,10 @@ html, body {
     font-weight: 400;
     color: #5943B0;
     background: #FFFC75;
-    border: 0; 
+    border: 0;
     border-radius: 3px;
-    outline: 0; 
-    text-indent: 60px; 
+    outline: 0;
+    text-indent: 60px;
     transition: all .3s ease-in-out;
 }
 
@@ -198,7 +198,7 @@ html, body {
     position: absolute;
     top: 8px;
     left: 0;
-    bottom: 8px;
+    bottom: 5px;
     padding: 5px 15px;
     color: #032429;
     font-size: 11px;
@@ -261,11 +261,18 @@ html, body {
     transition: all 0.3s ease-in-out;
 }
 
-#app #login button:hover, 
-#app #login button:active, 
+#app #login button:hover,
+#app #login button:active,
 #app #login button:focus {
     color: #fff;
     background: #7A67C5;
+
 }
 
 /* End of login */
+/* Input forms */
+#app #frames{
+  Ch
+
+
+}
